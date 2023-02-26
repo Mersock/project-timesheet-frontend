@@ -48,6 +48,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/project",
+    name: "Project",
+    icon: "nc-icon nc-circle-09",
+    component: UserProfile,
+    layout: "/admin"
+  },
+  {
     path: "/table",
     name: "Table List",
     icon: "nc-icon nc-notes",
