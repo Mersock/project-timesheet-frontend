@@ -23,6 +23,8 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
+import Project from "views/Project.js";
+
 
 const dashboardRoutes = [
   {
@@ -51,7 +53,7 @@ const dashboardRoutes = [
     path: "/project",
     name: "Project",
     icon: "nc-icon nc-circle-09",
-    component: UserProfile,
+    component: Project,
     layout: "/admin"
   },
   {
