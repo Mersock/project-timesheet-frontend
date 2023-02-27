@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 // react-bootstrap components
 import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
 
 import AsyncSelect from "react-select/async";
+
+import MultipleValueTextInput from "react-multivalue-text-input";
 
 const options = [
   { value: "1", label: "project_member_1@mail.com" },
@@ -24,17 +26,19 @@ const loadOptions = (inputValue, callback) => {
 };
 
 function Project() {
+
   return (
     <>
       <Container fluid>
         <Row>
-          <Col md="12">
+          <Col md="2"></Col>
+          <Col md="8">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Add User</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={(e) => e.preventDefault()}>
                   <Row>
                     <Col md="12">
                       <Form.Group>
@@ -47,15 +51,31 @@ function Project() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col md="5">
-                    <label htmlFor="inputMembers">Members</label>
+                    <Col md="12">
+                      <label htmlFor="inputMembers">Members</label>
                       <AsyncSelect
                         options={options}
                         isMulti
                         cacheOptions
                         loadOptions={loadOptions}
                         defaultOptions
-                        placeholder="Members"
+                        placeholder="Select members"
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                    <label htmlFor="inputMembers">Work Types</label>
+                      <MultipleValueTextInput
+                        onItemAdded={(item, allItems) =>
+                          console.log(`Item added: ${item}`)
+                        }
+                        onItemDeleted={(item, allItems) =>
+                          console.log(`Item removed: ${item}`)
+                        }
+                        className="form-control"
+                        name="work-type-item"
+                        placeholder="COMMA or ENTER to add WORK TYPEs."
                       />
                     </Col>
                   </Row>

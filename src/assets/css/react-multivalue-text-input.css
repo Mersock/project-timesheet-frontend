@@ -1,0 +1,4 @@
+label[for="work-type-item"] {
+  /* ...definitions here... */
+  text-transform: none !important;
+}
