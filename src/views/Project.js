@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // react-bootstrap components
-import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
+import { Button, Card, Form, Container, Row, Col,Table } from "react-bootstrap";
 
 import AsyncSelect from "react-select/async";
 
@@ -26,7 +26,6 @@ const loadOptions = (inputValue, callback) => {
 };
 
 function Project() {
-
   return (
     <>
       <Container fluid>
@@ -65,7 +64,7 @@ function Project() {
                   </Row>
                   <Row>
                     <Col md="12">
-                    <label htmlFor="inputMembers">Work Types</label>
+                      <label htmlFor="inputMembers">Work Types</label>
                       <MultipleValueTextInput
                         onItemAdded={(item, allItems) =>
                           console.log(`Item added: ${item}`)
@@ -88,6 +87,112 @@ function Project() {
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Project</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Row>
+                  <Col md="3">
+                    <div className="typography-line">PROJECT NAME:</div>
+                  </Col>
+                  <Col md="9">
+                    <div className="typography-line pl-5">
+                      Database Work Shop
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="3">
+                    <div className="typography-line">PROJECT CODE:</div>
+                  </Col>
+                  <Col md="9">
+                    <div className="typography-line pl-5">
+                      bff2dd5c-2273-476f-a399-dcff8debb06c
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="3">
+                    <div className="typography-line">MEMBERS:</div>
+                  </Col>
+                  <Col md="9">
+                    <Table className="table-hover">
+                      <thead>
+                        <tr>
+                          <th className="border-0">NO</th>
+                          <th className="border-0">Email</th>
+                          <th className="border-0">Firstname</th>
+                          <th className="border-0">Lastname</th>
+                          <th className="border-0">Role</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong className="text-primary">1</strong></td>
+                          <td><strong className="text-primary">Mineva@mail.com</strong></td>
+                          <td><strong className="text-primary">Mineva</strong></td>
+                          <td><strong className="text-primary">Hooper</strong></td>
+                          <td><strong className="text-primary">Project manager</strong></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>John@mail.com</td>
+                          <td>John</td>
+                          <td>Doe</td>
+                          <td>Project Member</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Bella@mail.com</td>
+                          <td>Bella</td>
+                          <td>Grenn</td>
+                          <td>Project Member</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>Leo@mail.com</td>
+                          <td>Leo</td>
+                          <td>Messi</td>
+                          <td>Project Member</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="3">
+                    <div className="typography-line">Work Type:</div>
+                  </Col>
+                  <Col md="9">
+                    <Table className="table-hover">
+                      <thead>
+                        <tr>
+                          <th className="border-0">NO</th>
+                          <th className="border-0">Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Design Database</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Create Table</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
