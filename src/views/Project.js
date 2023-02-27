@@ -35,7 +35,7 @@ function Project() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Add User</Card.Title>
+                <Card.Title as="h4">Add Project</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form onSubmit={(e) => e.preventDefault()}>
@@ -75,7 +75,7 @@ function Project() {
                         }
                         className="form-control"
                         name="work-type-item"
-                        placeholder="COMMA or ENTER to add WORK TYPEs."
+                        placeholder="COMMA or ENTER to add WORK TYPES."
                       />
                     </Col>
                   </Row>
