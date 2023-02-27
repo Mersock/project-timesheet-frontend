@@ -30,7 +30,7 @@ function TableList() {
     <>
       <Container fluid>
         <Row>
-          <Col md="12">
+          <Col md="8">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
                 <Card.Title as="h4">Users</Card.Title>
@@ -152,6 +152,88 @@ function TableList() {
                       <td>Project member</td>
                       <td>
                       <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Pagination {...mdSize} shadow />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md="8">
+            <Card className="strpied-tabled-with-hover">
+              <Card.Header>
+                <Card.Title as="h4">Projects</Card.Title>
+              </Card.Header>
+              <Card.Body className="table-full-width table-responsive px-0">
+                <Table className="table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th className="border-0">No</th>
+                      <th className="border-0">Project code</th>
+                      <th className="border-0">Project name</th>
+                      <th className="border-0">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>bff2dd5c-2273-476f-a399-dcff8debb06c</td>
+                      <td>Database Work Shop</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="info"
+                          size="sm"
+                        >
+                          View
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>615e3d90-d769-4f69-9176-9bfa7371acbf</td>
+                      <td>Java Programming Work Shop</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="info"
+                          size="sm"
+                        >
+                          View
+                        </Button>
+                        {' '}
+                        <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
