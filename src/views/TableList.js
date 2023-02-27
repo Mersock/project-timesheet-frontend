@@ -20,13 +20,12 @@ let mdSize = {
   showMax: 2,
   threeDots: true,
   prevNext: true,
-  onClick: function(page) {
+  onClick: function (page) {
     console.log(page);
-  }
+  },
 };
 
 function TableList() {
-
   return (
     <>
       <Container fluid>
@@ -45,6 +44,7 @@ function TableList() {
                       <th className="border-0">Firstname</th>
                       <th className="border-0">Lastname</th>
                       <th className="border-0">Role</th>
+                      <th className="border-0">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -54,6 +54,23 @@ function TableList() {
                       <td>Admin</td>
                       <td>Admin</td>
                       <td>Administrator</td>
+                      <td>
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                     <tr>
                       <td>2</td>
@@ -61,6 +78,23 @@ function TableList() {
                       <td>Minerva</td>
                       <td>Hooper</td>
                       <td>Project manager</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                     <tr>
                       <td>3</td>
@@ -68,6 +102,23 @@ function TableList() {
                       <td>Sage</td>
                       <td>Rodriguez</td>
                       <td>Project manager</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                     <tr>
                       <td>4</td>
@@ -75,6 +126,23 @@ function TableList() {
                       <td>Philip</td>
                       <td>Chaney</td>
                       <td>Project member</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                     <tr>
                       <td>5</td>
@@ -82,13 +150,23 @@ function TableList() {
                       <td>Doris</td>
                       <td>Greene</td>
                       <td>Project member</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>mason@mail.com</td>
-                      <td>Mason</td>
-                      <td>Porter</td>
-                      <td>Project member</td>
+                      <td>
+                      <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>
+                        {' '}
+                        <Button
+                          className="btn-fill"
+                          variant="danger"
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
