@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // react-bootstrap components
 import {
@@ -12,8 +12,21 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import Pagination from "react-bootstrap-4-pagination";
+
+let mdSize = {
+  totalPages: 2,
+  currentPage: 1,
+  showMax: 2,
+  threeDots: true,
+  prevNext: true,
+  onClick: function(page) {
+    console.log(page);
+  }
+};
 
 function TableList() {
+
   return (
     <>
       <Container fluid>
@@ -21,67 +34,65 @@ function TableList() {
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">Striped Table with Hover</Card.Title>
-                <p className="card-category">
-                  Here is a subtitle for this table
-                </p>
+                <Card.Title as="h4">Users</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover table-striped">
                   <thead>
                     <tr>
-                      <th className="border-0">ID</th>
-                      <th className="border-0">Name</th>
-                      <th className="border-0">Salary</th>
-                      <th className="border-0">Country</th>
-                      <th className="border-0">City</th>
+                      <th className="border-0">No</th>
+                      <th className="border-0">Email</th>
+                      <th className="border-0">Firstname</th>
+                      <th className="border-0">Lastname</th>
+                      <th className="border-0">Role</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td>$36,738</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
+                      <td>admin@admin.com</td>
+                      <td>Admin</td>
+                      <td>Admin</td>
+                      <td>Administrator</td>
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td>Minerva Hooper</td>
-                      <td>$23,789</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
+                      <td>minerva@mail.com</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>Project manager</td>
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td>Sage Rodriguez</td>
-                      <td>$56,142</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
+                      <td>sage@mail.com</td>
+                      <td>Sage</td>
+                      <td>Rodriguez</td>
+                      <td>Project manager</td>
                     </tr>
                     <tr>
                       <td>4</td>
-                      <td>Philip Chaney</td>
-                      <td>$38,735</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
+                      <td>philip@mail.com</td>
+                      <td>Philip</td>
+                      <td>Chaney</td>
+                      <td>Project member</td>
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td>Doris Greene</td>
-                      <td>$63,542</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
+                      <td>doris@mail.com</td>
+                      <td>Doris</td>
+                      <td>Greene</td>
+                      <td>Project member</td>
                     </tr>
                     <tr>
                       <td>6</td>
-                      <td>Mason Porter</td>
-                      <td>$78,615</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
+                      <td>mason@mail.com</td>
+                      <td>Mason</td>
+                      <td>Porter</td>
+                      <td>Project member</td>
                     </tr>
                   </tbody>
                 </Table>
+                <Pagination {...mdSize} shadow />
               </Card.Body>
             </Card>
           </Col>
