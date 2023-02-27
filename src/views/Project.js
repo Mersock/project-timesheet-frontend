@@ -8,9 +8,9 @@ import AsyncSelect from "react-select/async";
 import MultipleValueTextInput from "react-multivalue-text-input";
 
 const options = [
-  { value: "1", label: "project_member_1@mail.com" },
-  { value: "2", label: "project_member_2@mail.com" },
-  { value: "3", label: "project_member_3@mail.com" },
+  { value: "1", label: "John@mail.com" },
+  { value: "2", label: "Leo@mail.com" },
+  { value: "3", label: "Bella@mail.com" },
 ];
 
 const filterColors = (inputValue) => {
