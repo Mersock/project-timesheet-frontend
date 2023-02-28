@@ -3,10 +3,9 @@ import React, { useState } from "react";
 // react-bootstrap components
 import {
   Badge,
+  Alert,
   Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
@@ -61,13 +60,8 @@ function TableList() {
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -79,19 +73,14 @@ function TableList() {
                       <td>Hooper</td>
                       <td>Project manager</td>
                       <td>
-                      <Button
+                        <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -103,19 +92,14 @@ function TableList() {
                       <td>Rodriguez</td>
                       <td>Project manager</td>
                       <td>
-                      <Button
+                        <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -127,19 +111,14 @@ function TableList() {
                       <td>Chaney</td>
                       <td>Project member</td>
                       <td>
-                      <Button
+                        <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -151,19 +130,14 @@ function TableList() {
                       <td>Greene</td>
                       <td>Project member</td>
                       <td>
-                      <Button
+                        <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -195,27 +169,17 @@ function TableList() {
                       <td>bff2dd5c-2273-476f-a399-dcff8debb06c</td>
                       <td>Database Work Shop</td>
                       <td>
-                      <Button
-                          className="btn-fill"
-                          variant="info"
-                          size="sm"
-                        >
+                        <Button className="btn-fill" variant="info" size="sm">
                           View
-                        </Button>
-                        {' '}
+                        </Button>{" "}
                         <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
-                        </Button>
-                        {' '}
-                        <Button
-                          className="btn-fill"
-                          variant="danger"
-                          size="sm"
-                        >
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
@@ -225,27 +189,255 @@ function TableList() {
                       <td>615e3d90-d769-4f69-9176-9bfa7371acbf</td>
                       <td>Java Programming Work Shop</td>
                       <td>
-                      <Button
-                          className="btn-fill"
-                          variant="info"
-                          size="sm"
-                        >
+                        <Button className="btn-fill" variant="info" size="sm">
                           View
-                        </Button>
-                        {' '}
+                        </Button>{" "}
                         <Button
                           className="btn-fill"
                           variant="primary"
                           size="sm"
                         >
                           Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
                         </Button>
-                        {' '}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>c7550d3c-b711-11ed-8b51-0242ac170003</td>
+                      <td>Cloud Computing Workshop</td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
                         <Button
                           className="btn-fill"
-                          variant="danger"
+                          variant="primary"
                           size="sm"
                         >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>ed5d2fb4-b711-11ed-8b51-0242ac170003</td>
+                      <td>Information Audit Workshop</td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>26c742a0-b712-11ed-8b51-0242ac170003</td>
+                      <td>Blockchain Workshop</td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+                <Pagination {...mdSize} shadow />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md="12">
+            <Card className="strpied-tabled-with-hover">
+              <Card.Header>
+                <Card.Title as="h4">Time Entries</Card.Title>
+              </Card.Header>
+              <Card.Body className="table-full-width table-responsive px-0">
+                <Table className="table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th className="border-0">No</th>
+                      <th className="border-0">Project code</th>
+                      <th className="border-0">Project name</th>
+                      <th className="border-0">Work Type</th>
+                      <th className="border-0">Start Time</th>
+                      <th className="border-0">End Time</th>
+                      <th className="border-0">Firstname</th>
+                      <th className="border-0">Lastname</th>
+                      <th className="border-0">Status</th>
+                      <th className="border-0">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>bff2dd5c-2273-476f-a399-dcff8debb06c</td>
+                      <td>Database Work Shop</td>
+                      <td>Design Database</td>
+                      <td>20-02-2023 09:00</td>
+                      <td>20-02-2023 18:00</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>
+                        <Badge className="bg-success" variant="info">
+                          Done
+                        </Badge>
+                      </td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>bff2dd5c-2273-476f-a399-dcff8debb06c</td>
+                      <td>Database Work Shop</td>
+                      <td>Create table</td>
+                      <td>21-02-2023 09:00</td>
+                      <td>21-02-2023 18:00</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>
+                        <Badge className="bg-success" variant="info">
+                          Done
+                        </Badge>
+                      </td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>615e3d90-d769-4f69-9176-9bfa7371acbf</td>
+                      <td>Java Programming Work Shop</td>
+                      <td>Create OOP Class</td>
+                      <td>21-02-2023 09:00</td>
+                      <td>21-02-2023 12:00</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>
+                      <Badge className="bg-info" variant="info">
+                          In Progress
+                      </Badge>
+                      </td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>615e3d90-d769-4f69-9176-9bfa7371acbf</td>
+                      <td>Java Programming Work Shop</td>
+                      <td>Practice Exam</td>
+                      <td>24-02-2023 09:00</td>
+                      <td>24-02-2023 18:00</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>
+                      <Badge className="bg-info" variant="info">
+                          In Progress
+                      </Badge>
+                      </td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>ed5d2fb4-b711-11ed-8b51-0242ac170003</td>
+                      <td>Information Audit Workshop	</td>
+                      <td>Create audit control checklist</td>
+                      <td>24-02-2023 09:00</td>
+                      <td>24-02-2023 18:00</td>
+                      <td>Minerva</td>
+                      <td>Hooper</td>
+                      <td>
+                      <Badge className="bg-primary" variant="info">
+                          To do
+                      </Badge>
+                      </td>
+                      <td>
+                        <Button className="btn-fill" variant="info" size="sm">
+                          View
+                        </Button>{" "}
+                        <Button
+                          className="btn-fill"
+                          variant="primary"
+                          size="sm"
+                        >
+                          Edit
+                        </Button>{" "}
+                        <Button className="btn-fill" variant="danger" size="sm">
                           Delete
                         </Button>
                       </td>
