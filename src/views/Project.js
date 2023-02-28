@@ -1,16 +1,40 @@
 import React, { useState } from "react";
 
 // react-bootstrap components
-import { Button, Card, Form, Container, Row, Col,Table } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Form,
+  Container,
+  Row,
+  Col,
+  Table,
+} from "react-bootstrap";
 
 import AsyncSelect from "react-select/async";
+import Select from "react-select";
 
 import MultipleValueTextInput from "react-multivalue-text-input";
+
+import DatePicker from "react-datepicker";
 
 const options = [
   { value: "1", label: "John@mail.com" },
   { value: "2", label: "Leo@mail.com" },
   { value: "3", label: "Bella@mail.com" },
+];
+
+const workTypes = [
+  { value: "1", label: "Design Database" },
+  { value: "2", label: "Create Table" },
+];
+
+const statuses = [
+  { value: "1", label: "To do" },
+  { value: "2", label: "In progress" },
+  { value: "3", label: "Block" },
+  { value: "4", label: "Fail" },
+  { value: "5", label: "Done" },
 ];
 
 const filterColors = (inputValue) => {
@@ -26,6 +50,10 @@ const loadOptions = (inputValue, callback) => {
 };
 
 function Project() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+
   return (
     <>
       <Container fluid>
@@ -137,11 +165,25 @@ function Project() {
                       </thead>
                       <tbody>
                         <tr>
-                          <td><strong className="text-primary">1</strong></td>
-                          <td><strong className="text-primary">Mineva@mail.com</strong></td>
-                          <td><strong className="text-primary">Mineva</strong></td>
-                          <td><strong className="text-primary">Hooper</strong></td>
-                          <td><strong className="text-primary">Project manager</strong></td>
+                          <td>
+                            <strong className="text-primary">1</strong>
+                          </td>
+                          <td>
+                            <strong className="text-primary">
+                              Mineva@mail.com
+                            </strong>
+                          </td>
+                          <td>
+                            <strong className="text-primary">Mineva</strong>
+                          </td>
+                          <td>
+                            <strong className="text-primary">Hooper</strong>
+                          </td>
+                          <td>
+                            <strong className="text-primary">
+                              Project manager
+                            </strong>
+                          </td>
                         </tr>
                         <tr>
                           <td>2</td>
@@ -193,6 +235,85 @@ function Project() {
                     </Table>
                   </Col>
                 </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Add Time Entry</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form onSubmit={(e) => e.preventDefault()}>
+                  <Row>
+                    <Col md="6">
+                      <label htmlFor="inputMembers">Work Type</label>
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        isDisabled={false}
+                        isClearable
+                        isSearchable
+                        name="work_types"
+                        options={workTypes}
+                        placeholder="Please choose your work type"
+                      />
+                    </Col>
+                    <Col md="6">
+                      <label htmlFor="inputMembers">Status</label>
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        isDisabled={false}
+                        isClearable
+                        isSearchable
+                        name="status"
+                        options={statuses}
+                        placeholder="Status"
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="6">
+                      <label htmlFor="inputMembers">Start Time</label>
+                      <DatePicker
+                        className="form-control"
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        showTimeSelect
+                        timeIntervals={10}
+                        dateFormat="dd-MM-yyyy HH:mm"
+                        timeFormat="HH:mm"
+                        placeholderText="Select Start Time"
+                      />
+                    </Col>
+                    <Col md="6">
+                    <label htmlFor="inputMembers">End Time</label>
+                      <DatePicker
+                        className="form-control"
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        showTimeSelect
+                        timeIntervals={10}
+                        dateFormat="dd-MM-yyyy HH:mm"
+                        timeFormat="HH:mm"
+                        placeholderText="Select End Time"
+                      /> 
+                    </Col>
+                  </Row>
+                  <Button
+                    className="btn-fill pull-right"
+                    type="submit"
+                    variant="info"
+                  >
+                    Add
+                  </Button>
+                  <div className="clearfix"></div>
+                </Form>
               </Card.Body>
             </Card>
           </Col>

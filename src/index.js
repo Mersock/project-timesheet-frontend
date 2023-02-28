@@ -29,6 +29,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import "./assets/css/react-multivalue-text-input.css";
 
+import "react-datepicker/dist/react-datepicker.css";
+
+
 import AdminLayout from "layouts/Admin.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
