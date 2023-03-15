@@ -11,6 +11,7 @@ import {
   Table,
   InputGroup,
   FormControl,
+  Badge,
 } from "react-bootstrap";
 
 import AsyncSelect from "react-select/async";
@@ -343,7 +344,7 @@ function Project() {
                     <Col md="12">
                       <Row>
                         <Col className="text-center">
-                            <span>Database Work Shop</span>
+                          <span>Database Work Shop</span>
                         </Col>
                       </Row>
                       <Table className="table-hover">
@@ -364,6 +365,97 @@ function Project() {
                             <td>2</td>
                             <td>Create Table</td>
                             <td>00:02:00</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Report Individual Time Entry</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Row>
+                    <Col md="6">
+                      <Form.Group>
+                        <Form.Control
+                          placeholder="Project Code"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col md="6">
+                      <Form.Group>
+                        <Form.Control
+                          placeholder="Email"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Button
+                        className="btn-fill pull-right"
+                        type="submit"
+                        variant="info"
+                      >
+                        Search
+                      </Button>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Row>
+                        <Col md="4" className="text-left">
+                          <span>Project: Database Work Shop</span>
+                        </Col>
+                        <Col md="4" className="text-left">
+                          <span>Fullname: John Doe</span>
+                        </Col>
+                      </Row>
+                      <Table className="table-hover">
+                        <thead>
+                          <tr>
+                            <th className="border-0">NO</th>
+                            <th className="border-0">Work Type</th>
+                            <th className="border-0">Status</th>
+                            <th className="border-0">Start Time</th>
+                            <th className="border-0">End Time</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Design Database</td>
+                            <td>
+                              <Badge className="bg-success" variant="info">
+                                Done
+                              </Badge>
+                            </td>
+                            <td>20-02-2023 09:00</td>
+                            <td>20-02-2023 18:00</td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Create Table</td>
+                            <td>
+                              <Badge className="bg-success" variant="info">
+                                Done
+                              </Badge>
+                            </td>
+                            <td>21-02-2023 09:00</td>
+                            <td>21-02-2023 18:00</td>
                           </tr>
                         </tbody>
                       </Table>
