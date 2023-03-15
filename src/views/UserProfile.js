@@ -85,7 +85,7 @@ function User() {
                     type="submit"
                     variant="info"
                   >
-                    ADD
+                    Add
                   </Button>
                   <div className="clearfix"></div>
                 </Form>

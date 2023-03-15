@@ -9,6 +9,8 @@ import {
   Row,
   Col,
   Table,
+  InputGroup,
+  FormControl,
 } from "react-bootstrap";
 
 import AsyncSelect from "react-select/async";
@@ -52,7 +54,6 @@ const loadOptions = (inputValue, callback) => {
 function Project() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
 
   return (
     <>
@@ -292,7 +293,7 @@ function Project() {
                       />
                     </Col>
                     <Col md="6">
-                    <label htmlFor="inputMembers">End Time</label>
+                      <label htmlFor="inputMembers">End Time</label>
                       <DatePicker
                         className="form-control"
                         selected={endDate}
@@ -302,7 +303,7 @@ function Project() {
                         dateFormat="dd-MM-yyyy HH:mm"
                         timeFormat="HH:mm"
                         placeholderText="Select End Time"
-                      /> 
+                      />
                     </Col>
                   </Row>
                   <Button
@@ -313,6 +314,61 @@ function Project() {
                     Add
                   </Button>
                   <div className="clearfix"></div>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Report Total Time</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Row>
+                    <Col md="12">
+                      <Form.Group>
+                        <Form.Control
+                          placeholder="Search by Project Code"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Row>
+                        <Col className="text-center">
+                            <span>Database Work Shop</span>
+                        </Col>
+                      </Row>
+                      <Table className="table-hover">
+                        <thead>
+                          <tr>
+                            <th className="border-0">NO</th>
+                            <th className="border-0">Work Type</th>
+                            <th className="border-0">Total Time</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Design Database</td>
+                            <td>00:01:00</td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Create Table</td>
+                            <td>00:02:00</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
                 </Form>
               </Card.Body>
             </Card>
