@@ -466,6 +466,162 @@ function Project() {
             </Card>
           </Col>
         </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Report Member In Project</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Row>
+                    <Col md="12">
+                      <Form.Group>
+                        <Form.Control
+                          placeholder="Search by Project Code"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                        <Col className="text-center">
+                          <span>Database Work Shop</span>
+                        </Col>
+                      </Row>
+                  <Row>
+                    <Col md="12">
+                      <Table className="table-hover">
+                        <thead>
+                          <tr>
+                            <th className="border-0">NO</th>
+                            <th className="border-0">Email</th>
+                            <th className="border-0">Firstname</th>
+                            <th className="border-0">Lastname</th>
+                            <th className="border-0">Role</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <strong className="text-primary">1</strong>
+                            </td>
+                            <td>
+                              <strong className="text-primary">
+                                Mineva@mail.com
+                              </strong>
+                            </td>
+                            <td>
+                              <strong className="text-primary">Mineva</strong>
+                            </td>
+                            <td>
+                              <strong className="text-primary">Hooper</strong>
+                            </td>
+                            <td>
+                              <strong className="text-primary">
+                                Project manager
+                              </strong>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>John@mail.com</td>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>Project Member</td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>Bella@mail.com</td>
+                            <td>Bella</td>
+                            <td>Grenn</td>
+                            <td>Project Member</td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>Leo@mail.com</td>
+                            <td>Leo</td>
+                            <td>Messi</td>
+                            <td>Project Member</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Report Total Project</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Row>
+                    <Col md="12">
+                      <Table className="table-hover">
+                        <thead>
+                          <tr>
+                            <th className="border-0"></th>
+                            <th className="border-0"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Total Project</td>
+                            <td>22</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Report Total User</Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Row>
+                    <Col md="12">
+                      <Table className="table-hover">
+                        <thead>
+                          <tr>
+                            <th className="border-0"></th>
+                            <th className="border-0"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Total User</td>
+                            <td>43</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
       </Container>
     </>
   );
