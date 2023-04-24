@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 const Auth = (props) => {
   return (
@@ -23,11 +23,12 @@ const Auth = (props) => {
               placeholder="Enter password"
             />
           </div>
-          <div className="auth-Submit">
+          <div className="d-grid gap-2 mt-3">
             <Button
-              className="btn-fill auth-btn"
               type="submit"
+              class="btn btn-primary"
               variant="primary"
+              size="lg"
             >
               Submit
             </Button>
