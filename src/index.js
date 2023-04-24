@@ -21,7 +21,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
+import {
+  legacy_createStore as createStore,
+  applyMiddleware,
+  compose,
+} from "redux";
 import reduxThunk from "redux-thunk";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -34,8 +38,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AdminLayout from "layouts/Admin.js";
 import Auth from "views/Auth.js";
 
-import reducers from './reducer';
-
+import reducers from "./reducer";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
