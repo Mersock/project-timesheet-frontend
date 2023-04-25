@@ -4,9 +4,11 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { Login } from "utils/auth";
+import { useHistory } from "react-router-dom";
 
 const Auth = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -16,6 +18,7 @@ const Auth = (props) => {
       const password = e.target.password.value;
       const res = await Login(email, password);
       dispatch(signInAction(res));
+      history.push("/admin/dashboard");
     } catch (error) {
       setError(true)
       console.error("handleSubmit",error);

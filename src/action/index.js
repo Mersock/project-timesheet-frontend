@@ -8,6 +8,8 @@ export const signInAction = (data) => (dispatch, getState) => {
       type: SIGN_IN,
       payload: {
         userInfo,
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token
       },
     });
   } catch (error) {
