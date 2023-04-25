@@ -53,12 +53,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <Switch>
-        <Route path="/auth" render={Auth} />
+    <Switch>
+      <Provider store={store}>
+        <Route path="/auth" render={(props) => <Auth {...props}/> } />
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Redirect from="/" to="/admin/dashboard" />
-      </Switch>
-    </Provider>
+        {/* <Redirect from="/" to="/admin/dashboard" /> */}
+      </Provider>
+    </Switch>
   </BrowserRouter>
 );
