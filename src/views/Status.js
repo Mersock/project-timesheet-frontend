@@ -4,31 +4,47 @@ import { Container, Row, Col, Card, Table, Button } from "react-bootstrap";
 import { backendUrl } from "../config";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useAxiosFetch } from "customeHook/useAxiosFetch";
 
 function Status() {
   const [statusList, setStatusList] = useState(null);
   const auth = useSelector((state) => state.auth);
   const history = useHistory();
 
+  const { fetchData, data, loading, error } = useAxiosFetch(
+    {
+      method: "GET",
+      url: "/status",
+      headers: { Authorization: `bearer ${auth.accessToken}` },
+    },
+    false
+  );
+
   useEffect(() => {
     if (auth.accessToken) {
-      axios
-        .get(`${backendUrl}/status`, {
-          headers: {
-            Authorization: `bearer ${auth.accessToken}`,
-          },
-        })
-        .then((res) => {
-          setStatusList(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-          if (err.response.status == 401) {
-            history.push("/auth");
-          }
-        });
+      fetchData();
     }
   }, [auth.accessToken]);
+
+  useEffect(() => {
+    if (data) {
+      setStatusList(data);
+    } else {
+      setStatusList([]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (loading) {
+      console.log("retrieving tutorials...");
+    }
+  }, [loading]);
 
   return (
     <>
@@ -49,29 +65,31 @@ function Status() {
                       </tr>
                     </thead>
                     <tbody>
-                      {statusList.data.map((item,key) => {
-                        return (
-                          <tr key={key}>
-                            <td>{item.name}</td>
-                            <td>
-                              <Button
-                                className="btn-fill"
-                                variant="primary"
-                                size="sm"
-                              >
-                                Edit
-                              </Button>{" "}
-                              <Button
-                                className="btn-fill"
-                                variant="danger"
-                                size="sm"
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                      {statusList.data
+                        ? statusList.data.map((item, key) => {
+                            return (
+                              <tr key={key}>
+                                <td>{item.name}</td>
+                                <td>
+                                  <Button
+                                    className="btn-fill"
+                                    variant="primary"
+                                    size="sm"
+                                  >
+                                    Edit
+                                  </Button>{" "}
+                                  <Button
+                                    className="btn-fill"
+                                    variant="danger"
+                                    size="sm"
+                                  >
+                                    Delete
+                                  </Button>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        : null}
                     </tbody>
                   </Table>
                 </Card.Body>
