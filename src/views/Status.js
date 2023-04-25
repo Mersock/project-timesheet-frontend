@@ -2,13 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Table, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 
 function Status() {
   const [statusList, setStatusList] = useState(null);
   const auth = useSelector((state) => state.auth);
-  const history = useHistory();
 
   const { fetchData, data, loading, error } = useAxiosFetch(
     {
