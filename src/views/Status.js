@@ -29,7 +29,6 @@ function Status() {
         });
     }
   }, [auth.accessToken]);
-  console.log(statusList);
 
   return (
     <>
