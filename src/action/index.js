@@ -3,7 +3,6 @@ import { SIGN_IN } from "./types";
 
 export const signInAction = (data) => (dispatch, getState) => {
   try {
-    console.log(data, getState());
     const userInfo = jwtDecode(data.access_token)
     dispatch({
       type: SIGN_IN,
