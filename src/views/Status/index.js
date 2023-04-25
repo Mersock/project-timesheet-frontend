@@ -54,8 +54,8 @@ function Status() {
                   <Card.Title as="h4">Status</Card.Title>
                 </Card.Header>
                 <Card.Body className="table-full-width table-responsive px-0">
-                  <Button className="btn-fill" variant="primary" size="sm">
-                    Edit
+                  <Button className="btn-fill ms-3" variant="primary" size="sm">
+                    Add
                   </Button>
                   <Table className="table-hover table-striped">
                     <thead>
