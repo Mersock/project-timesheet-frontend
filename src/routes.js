@@ -22,6 +22,7 @@ import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Upgrade from "views/Upgrade.js";
+import Status from "views/Status"
 
 const dashboardRoutes = [
   {
@@ -86,7 +87,7 @@ const dashboardRoutes = [
     path: "/status",
     name: "Status",
     icon: "nc-icon nc-pin-3",
-    component: Maps,
+    component: Status,
     layout: "/admin",
     roles:['administrator']
   }
