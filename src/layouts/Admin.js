@@ -26,11 +26,14 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
+import { useDispatch } from "react-redux";
+import { initUserAction } from "action";
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
   const [color, setColor] = React.useState("black");
   const [hasImage, setHasImage] = React.useState(true);
+  const dispatch = useDispatch()
   const location = useLocation();
   const mainPanel = React.useRef(null);
   const getRoutes = (routes) => {
@@ -61,6 +64,11 @@ function Admin() {
       element.parentNode.removeChild(element);
     }
   }, [location]);
+
+  React.useEffect(() => {
+    dispatch(initUserAction())
+  },[dispatch])
+
   return (
     <>
       <div className="wrapper">
