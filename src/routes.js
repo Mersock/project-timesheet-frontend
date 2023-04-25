@@ -30,7 +30,7 @@ const dashboardRoutes = [
     name: "Upgrade to PRO",
     icon: "nc-icon nc-alien-33",
     component: Upgrade,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/dashboard",
@@ -73,6 +73,22 @@ const dashboardRoutes = [
     icon: "nc-icon nc-pin-3",
     component: Maps,
     layout: "/admin"
+  },
+  {
+    path: "/users",
+    name: "Users",
+    icon: "nc-icon nc-pin-3",
+    component: Maps,
+    layout: "/admin",
+    roles:['administrator']
+  },
+  {
+    path: "/status",
+    name: "Status",
+    icon: "nc-icon nc-pin-3",
+    component: Maps,
+    layout: "/admin",
+    roles:['administrator']
   }
 ];
 
