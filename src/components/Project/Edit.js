@@ -45,7 +45,7 @@ function Edit({ activeData, show, setShow, fetchData }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      <Modal show={show} onHide={handleClose} animation={true} size="lg">
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
             <Modal.Title>Edit Project</Modal.Title>
