@@ -59,7 +59,7 @@ function Status() {
                   <Card.Title as="h4">Status</Card.Title>
                 </Card.Header>
                 <Card.Body className="table-full-width table-responsive px-0">
-                  <Button onClick={() => setAdd(!add)} className="btn-fill ms-3" variant="primary" size="sm">
+                  <Button onClick={() => setAdd(!add)} className="btn-fill ms-3" variant="info" size="sm">
                     Add
                   </Button>
                   <Table className="table-hover table-striped">
