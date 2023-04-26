@@ -8,7 +8,7 @@ import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 
-function Edit({ activeData, show, setShow, fetchData }) {
+function Edit({ activeData, show, setShow, fetchData, roleList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const auth = useSelector((state) => state.auth);

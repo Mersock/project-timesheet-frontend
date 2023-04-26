@@ -9,7 +9,8 @@ import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
 
 function User() {
-  const [statusList, setStatusList] = useState(null);
+  const [userList, setUserList] = useState(null);
+  const [roleList, setRoleList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
@@ -21,6 +22,15 @@ function User() {
     {
       method: "GET",
       url: `/user${fakePaginate}`,
+      headers: { Authorization: `bearer ${auth.accessToken}` },
+    },
+    false
+  );
+
+  const { fetchData: fetchRole, data: role } = useAxiosFetch(
+    {
+      method: "GET",
+      url: `/role${fakePaginate}`,
       headers: { Authorization: `bearer ${auth.accessToken}` },
     },
     false
@@ -86,14 +96,15 @@ function User() {
   useEffect(() => {
     if (auth.accessToken) {
       fetchData();
+      fetchRole();
     }
   }, [auth.accessToken]);
 
   useEffect(() => {
     if (data) {
-      setStatusList(data);
+      setUserList(data);
     } else {
-      setStatusList([]);
+      setUserList([]);
     }
   }, [data]);
 
@@ -109,14 +120,34 @@ function User() {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (role) {
+      const roleOption = role?.data.map((item) => {
+        const option = {
+          value: item.id,
+          label: String(item.name).charAt(0).toUpperCase() + item.name.slice(1),
+        };
+        return option;
+      });
+      setRoleList(roleOption);
+    }
+  }, [role]);
+
+  console.log(roleList);
   return (
     <>
-      <Add show={add} setShow={setAdd} fetchData={fetchData} />
+      <Add
+        show={add}
+        setShow={setAdd}
+        fetchData={fetchData}
+        roleList={roleList}
+      />
       <Edit
         show={edit}
         activeData={activeData}
         setShow={setEdit}
         fetchData={fetchData}
+        oleList={roleList}
       />
       <Delete
         show={deletes}
@@ -125,7 +156,7 @@ function User() {
         fetchData={fetchData}
       />
       <Container fluid>
-        {statusList ? (
+        {userList ? (
           <Row>
             <Col md="12">
               <Card className="strpied-tabled-with-hover">
@@ -143,7 +174,7 @@ function User() {
                   </Button>
                   <DataTable
                     columns={columns}
-                    data={statusList.data}
+                    data={userList.data}
                     progressPending={loading}
                     pagination
                   />

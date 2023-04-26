@@ -9,7 +9,7 @@ import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-function Add({ show, setShow, fetchData }) {
+function Add({ show, setShow, fetchData, roleList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const auth = useSelector((state) => state.auth);
@@ -105,14 +105,15 @@ function Add({ show, setShow, fetchData }) {
             </Row>
             <Row>
               <Col className="pr-1" md="12">
-              <Form.Label>Role</Form.Label>
+                <Form.Label>Role</Form.Label>
                 <Form.Group>
                   <Select
                     placeholder="Role"
                     classNamePrefix="select"
                     isClearable={true}
                     isSearchable={true}
-                    name="color"
+                    name="role"
+                    options={roleList}
                   />
                 </Form.Group>
               </Col>
