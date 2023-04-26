@@ -23,6 +23,7 @@ import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Upgrade from "views/Upgrade.js";
 import Status from "views/Status"
+import Role from "views/Role";
 
 const dashboardRoutes = [
   {
@@ -86,8 +87,16 @@ const dashboardRoutes = [
   {
     path: "/status",
     name: "Status",
-    icon: "nc-icon nc-pin-3",
+    icon: "nc-icon nc-bullet-list-67",
     component: Status,
+    layout: "/admin",
+    roles:['administrator']
+  },
+  {
+    path: "/role",
+    name: "Role",
+    icon: "nc-icon nc-lock-circle-open",
+    component: Role,
     layout: "/admin",
     roles:['administrator']
   }
