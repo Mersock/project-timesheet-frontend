@@ -24,6 +24,7 @@ import Maps from "views/Maps.js";
 import Upgrade from "views/Upgrade.js";
 import Status from "views/Status"
 import Role from "views/Role";
+import User from "views/User";
 
 const dashboardRoutes = [
   {
@@ -42,7 +43,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
+    path: "/user/profile",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
@@ -79,8 +80,8 @@ const dashboardRoutes = [
   {
     path: "/users",
     name: "Users",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
+    icon: "nc-icon nc-circle-09",
+    component: User,
     layout: "/admin",
     roles:['administrator']
   },
