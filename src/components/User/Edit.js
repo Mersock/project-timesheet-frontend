@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
+import Select from "react-select";
+import { capitalizeStr } from "utils/string";
 
 function Edit({ activeData, show, setShow, fetchData, roleList }) {
   const [isLoading, setLoading] = useState(false);
@@ -24,13 +26,16 @@ function Edit({ activeData, show, setShow, fetchData, roleList }) {
     setLoading(true);
     try {
       const param = {
-        name: e.target.name.value,
+        email: e.target.email.value,
+        firstname: e.target.firstname.value,
+        lastname: e.target.lastname.value,
+        role: Number(e.target.role.value),
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
-      const id = activeData.id;
-      await axios.put(`${backendUrl}/role/${id}`, param, config);
+      const id = activeData?.id;
+      await axios.put(`${backendUrl}/user/${id}`, param, config);
       await fetchData();
       setShow(false);
       setLoading(false);
@@ -48,24 +53,78 @@ function Edit({ activeData, show, setShow, fetchData, roleList }) {
       <Modal show={show} onHide={handleClose} animation={true}>
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
-            <Modal.Title>Edit User</Modal.Title>
+            <Modal.Title>Add User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
               <Col className="pr-1" md="12">
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
-                    defaultValue={activeData?.name || ""}
-                    name="name"
-                    placeholder="Name"
-                    type="text"
+                    defaultValue={activeData?.email || ""}
+                    name="email"
+                    placeholder="Email"
+                    type="email"
                     onFocus={() => setExistErr(false)}
+                    required
                   ></Form.Control>
                 </Form.Group>
                 {existErr ? (
                   <p className="text-danger">This email already exist</p>
                 ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Firstname</Form.Label>
+                  <Form.Control
+                    defaultValue={activeData?.firstname || ""}
+                    name="firstname"
+                    placeholder="Firstname"
+                    type="text"
+                    required
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Lastname</Form.Label>
+                  <Form.Control
+                    defaultValue={activeData?.lastname || ""}
+                    name="lastname"
+                    placeholder="Lastname"
+                    type="text"
+                    required
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Label>Role</Form.Label>
+                <Form.Group>
+                  <Select
+                    defaultValue={
+                      roleList != null
+                        ? roleList.find(
+                            (role) =>
+                              role.label ==
+                              capitalizeStr(activeData?.role || "")
+                          )
+                        : null
+                    }
+                    placeholder="Role"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="role"
+                    options={roleList}
+                    required
+                  />
+                </Form.Group>
               </Col>
             </Row>
           </Modal.Body>

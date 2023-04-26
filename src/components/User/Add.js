@@ -24,7 +24,6 @@ function Add({ show, setShow, fetchData, roleList }) {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log(e.target.password.value);
       const param = {
         email: e.target.email.value,
         password: e.target.password.value,

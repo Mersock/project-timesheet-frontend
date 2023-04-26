@@ -7,6 +7,7 @@ import Edit from "../components/User/Edit.js";
 import Delete from "components/User/Delete.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
+import { capitalizeStr } from "utils/string.js";
 
 function User() {
   const [userList, setUserList] = useState(null);
@@ -54,7 +55,7 @@ function User() {
     },
     {
       name: "Role",
-      selector: (row) => row.role,
+      selector: (row) => capitalizeStr(row.role),
       left: true,
     },
     {
@@ -83,13 +84,13 @@ function User() {
     },
   ];
 
-  const handleEdit = (id) => {
-    setActiveData(id);
+  const handleEdit = (data) => {
+    setActiveData(data);
     setEdit(true);
   };
 
-  const handleDelete = (id) => {
-    setActiveData(id);
+  const handleDelete = (data) => {
+    setActiveData(data);
     setDeletes(true);
   };
 
@@ -146,7 +147,7 @@ function User() {
         activeData={activeData}
         setShow={setEdit}
         fetchData={fetchData}
-        oleList={roleList}
+        roleList={roleList}
       />
       <Delete
         show={deletes}
