@@ -36,6 +36,13 @@ function Edit({ activeData, show, setShow, fetchData, roleList }) {
       };
       const id = activeData?.id;
       await axios.put(`${backendUrl}/user/${id}`, param, config);
+      if (e.target.password.value) {
+        await axios.put(
+          `${backendUrl}/user/password/${id}`,
+          { password: e.target.password.value },
+          config
+        );
+      }
       await fetchData();
       setShow(false);
       setLoading(false);
@@ -72,6 +79,19 @@ function Edit({ activeData, show, setShow, fetchData, roleList }) {
                 {existErr ? (
                   <p className="text-danger">This email already exist</p>
                 ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    minLength={6}
+                  ></Form.Control>
+                </Form.Group>
               </Col>
             </Row>
             <Row>
