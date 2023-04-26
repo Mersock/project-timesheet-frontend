@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 import Add from "../components/Status/Add.js";
 import Edit from "../components/Status/Edit.js";
+import Delete from "components/Status/Delete.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
 
@@ -11,6 +12,7 @@ function Status() {
   const [statusList, setStatusList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [deletes, setDeletes] = useState(false);
   const [activeData, setActiveData] = useState(null);
 
   const auth = useSelector((state) => state.auth);
@@ -43,7 +45,12 @@ function Status() {
           >
             Edit
           </Button>
-          <Button className="btn-fill ms-1" variant="danger" size="sm">
+          <Button
+            onClick={() => handleDelete(row)}
+            className="btn-fill ms-1"
+            variant="danger"
+            size="sm"
+          >
             Delete
           </Button>
         </>
@@ -53,7 +60,12 @@ function Status() {
 
   const handleEdit = (id) => {
     setActiveData(id);
-    setEdit(true)
+    setEdit(true);
+  };
+
+  const handleDelete = (id) => {
+    setActiveData(id);
+    setDeletes(true);
   };
 
   useEffect(() => {
@@ -85,7 +97,18 @@ function Status() {
   return (
     <>
       <Add show={add} setShow={setAdd} fetchData={fetchData} />
-      <Edit show={edit} activeData={activeData} setShow={setEdit} fetchData={fetchData} />
+      <Edit
+        show={edit}
+        activeData={activeData}
+        setShow={setEdit}
+        fetchData={fetchData}
+      />
+      <Delete
+        show={deletes}
+        activeData={activeData}
+        setShow={setDeletes}
+        fetchData={fetchData}
+      />
       <Container fluid>
         {statusList ? (
           <Row>
