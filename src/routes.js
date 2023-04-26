@@ -21,8 +21,8 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
-import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
+import Status from "views/Status"
 
 const dashboardRoutes = [
   {
@@ -31,7 +31,7 @@ const dashboardRoutes = [
     name: "Upgrade to PRO",
     icon: "nc-icon nc-alien-33",
     component: Upgrade,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     path: "/dashboard",
@@ -76,11 +76,20 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
-    component: Notifications,
-    layout: "/admin"
+    path: "/users",
+    name: "Users",
+    icon: "nc-icon nc-pin-3",
+    component: Maps,
+    layout: "/admin",
+    roles:['administrator']
+  },
+  {
+    path: "/status",
+    name: "Status",
+    icon: "nc-icon nc-pin-3",
+    component: Status,
+    layout: "/admin",
+    roles:['administrator']
   }
 ];
 
