@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
+import Select from "react-select";
 
 function Add({ show, setShow, fetchData }) {
   const [isLoading, setLoading] = useState(false);
@@ -44,11 +45,7 @@ function Add({ show, setShow, fetchData }) {
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        animation={true}
-      >
+      <Modal show={show} onHide={handleClose} animation={true}>
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
             <Modal.Title>Add User</Modal.Title>
@@ -103,6 +100,20 @@ function Add({ show, setShow, fetchData }) {
                     placeholder="Lastname"
                     type="text"
                   ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+              <Form.Label>Role</Form.Label>
+                <Form.Group>
+                  <Select
+                    placeholder="Role"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="color"
+                  />
                 </Form.Group>
               </Col>
             </Row>
