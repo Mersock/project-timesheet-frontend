@@ -8,7 +8,7 @@ import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 
-function Add({ show, setShow,fetchData }) {
+function Add({ show, setShow, fetchData }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const auth = useSelector((state) => state.auth);
@@ -16,7 +16,7 @@ function Add({ show, setShow,fetchData }) {
   const handleClose = () => {
     setShow(false);
     setLoading(false);
-    setExistErr(false)
+    setExistErr(false);
   };
 
   const handleSubmit = async (e) => {
@@ -30,21 +30,25 @@ function Add({ show, setShow,fetchData }) {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
       await axios.post(`${backendUrl}/user`, param, config);
-      await fetchData()
-      setShow(false)
-      setLoading(false)
+      await fetchData();
+      setShow(false);
+      setLoading(false);
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
         setExistErr(true);
-        setLoading(false)
+        setLoading(false);
       }
     }
   };
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        animation={true}
+      >
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
             <Modal.Title>Add User</Modal.Title>
@@ -53,10 +57,10 @@ function Add({ show, setShow,fetchData }) {
             <Row>
               <Col className="pr-1" md="12">
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
-                    name="name"
-                    placeholder="Name"
+                    name="email"
+                    placeholder="Email"
                     type="text"
                     onFocus={() => setExistErr(false)}
                   ></Form.Control>
@@ -64,6 +68,42 @@ function Add({ show, setShow,fetchData }) {
                 {existErr ? (
                   <p className="text-danger">This email already exist</p>
                 ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Firstname</Form.Label>
+                  <Form.Control
+                    name="firstname"
+                    placeholder="Firstname"
+                    type="text"
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Group>
+                  <Form.Label>Lastname</Form.Label>
+                  <Form.Control
+                    name="lastname"
+                    placeholder="Lastname"
+                    type="text"
+                  ></Form.Control>
+                </Form.Group>
               </Col>
             </Row>
           </Modal.Body>
