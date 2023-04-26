@@ -25,6 +25,7 @@ import Upgrade from "views/Upgrade.js";
 import Status from "views/Status"
 import Role from "views/Role";
 import User from "views/User";
+import Project from "views/Project";
 
 const dashboardRoutes = [
   {
@@ -75,6 +76,13 @@ const dashboardRoutes = [
     name: "Maps",
     icon: "nc-icon nc-pin-3",
     component: Maps,
+    layout: "/admin"
+  },
+  {
+    path: "/project",
+    name: "Project",
+    icon: "nc-icon nc-tablet-2",
+    component: Project,
     layout: "/admin"
   },
   {
