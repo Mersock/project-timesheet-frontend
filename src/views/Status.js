@@ -3,44 +3,15 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 import Add from "../components/Status/Add.js";
+import Edit from "../components/Status/Edit.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
-
-const columns = [
-  {
-    name: "Name",
-    selector: (row) => row.name,
-    left: true,
-  },
-  {
-    name: "Action",
-    left: true,
-    cell: (row) => (
-      <>
-        <Button
-          id={row.id}
-          className="btn-fill me-1"
-          variant="primary"
-          size="sm"
-        >
-          Edit
-        </Button>
-        <Button
-          id={row.id}
-          className="btn-fill ms-1"
-          variant="danger"
-          size="sm"
-        >
-          Delete
-        </Button>
-      </>
-    ),
-  },
-];
 
 function Status() {
   const [statusList, setStatusList] = useState(null);
   const [add, setAdd] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [activeData, setActiveData] = useState(null);
 
   const auth = useSelector((state) => state.auth);
 
@@ -52,6 +23,38 @@ function Status() {
     },
     false
   );
+
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      left: true,
+    },
+    {
+      name: "Action",
+      left: true,
+      cell: (row) => (
+        <>
+          <Button
+            onClick={() => handleEdit(row)}
+            className="btn-fill me-1"
+            variant="primary"
+            size="sm"
+          >
+            Edit
+          </Button>
+          <Button className="btn-fill ms-1" variant="danger" size="sm">
+            Delete
+          </Button>
+        </>
+      ),
+    },
+  ];
+
+  const handleEdit = (id) => {
+    setActiveData(id);
+    setEdit(true)
+  };
 
   useEffect(() => {
     if (auth.accessToken) {
@@ -75,13 +78,14 @@ function Status() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving tutorials...");
+      console.log("retrieving status...");
     }
   }, [loading]);
 
   return (
     <>
       <Add show={add} setShow={setAdd} fetchData={fetchData} />
+      <Edit show={edit} activeData={activeData} setShow={setEdit} fetchData={fetchData} />
       <Container fluid>
         {statusList ? (
           <Row>
@@ -100,7 +104,6 @@ function Status() {
                     Add
                   </Button>
                   <DataTable
-                    title="Status"
                     columns={columns}
                     data={statusList.data}
                     progressPending={loading}
