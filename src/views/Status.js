@@ -49,7 +49,7 @@ function Status() {
 
   return (
     <>
-      <Add show={add} setShow={setAdd}/>
+      <Add show={add} setShow={setAdd}fetchData={fetchData} />
       <Container fluid>
         {statusList ? (
           <Row>
