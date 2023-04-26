@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 import Add from "../components/Status/Add.js";
 import DataTable from "react-data-table-component";
+import { fakePaginate } from "config/index.js";
 
 const columns = [
   {
@@ -14,12 +15,22 @@ const columns = [
   {
     name: "Action",
     left: true,
-    cell: () => (
+    cell: (row) => (
       <>
-        <Button className="btn-fill me-1" variant="primary" size="sm">
+        <Button
+          id={row.id}
+          className="btn-fill me-1"
+          variant="primary"
+          size="sm"
+        >
           Edit
         </Button>
-        <Button className="btn-fill ms-1" variant="danger" size="sm">
+        <Button
+          id={row.id}
+          className="btn-fill ms-1"
+          variant="danger"
+          size="sm"
+        >
           Delete
         </Button>
       </>
@@ -36,7 +47,7 @@ function Status() {
   const { fetchData, data, loading, error } = useAxiosFetch(
     {
       method: "GET",
-      url: "/status",
+      url: `/status${fakePaginate}`,
       headers: { Authorization: `bearer ${auth.accessToken}` },
     },
     false
@@ -92,6 +103,7 @@ function Status() {
                     title="Status"
                     columns={columns}
                     data={statusList.data}
+                    progressPending={loading}
                     pagination
                   />
                 </Card.Body>
