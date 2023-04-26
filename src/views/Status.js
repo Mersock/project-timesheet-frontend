@@ -1,9 +1,31 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 import Add from "../components/Status/Add.js";
+import DataTable from "react-data-table-component";
+
+const columns = [
+  {
+    name: "Name",
+    selector: (row) => row.name,
+    left: true,
+  },
+  {
+    name: "Action",
+    left: true,
+    cell: () => (
+      <>
+        <Button className="btn-fill me-1" variant="primary" size="sm">
+          Edit
+        </Button>
+        <Button className="btn-fill ms-1" variant="danger" size="sm">
+          Delete
+        </Button>
+      </>
+    ),
+  },
+];
 
 function Status() {
   const [statusList, setStatusList] = useState(null);
@@ -46,10 +68,9 @@ function Status() {
     }
   }, [loading]);
 
-
   return (
     <>
-      <Add show={add} setShow={setAdd}fetchData={fetchData} />
+      <Add show={add} setShow={setAdd} fetchData={fetchData} />
       <Container fluid>
         {statusList ? (
           <Row>
@@ -59,44 +80,20 @@ function Status() {
                   <Card.Title as="h4">Status</Card.Title>
                 </Card.Header>
                 <Card.Body className="table-full-width table-responsive px-0">
-                  <Button onClick={() => setAdd(!add)} className="btn-fill ms-3" variant="info" size="sm">
+                  <Button
+                    onClick={() => setAdd(!add)}
+                    className="btn-fill ms-3"
+                    variant="info"
+                    size="sm"
+                  >
                     Add
                   </Button>
-                  <Table className="table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th className="border-0">Name</th>
-                        <th className="border-0">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {statusList.data
-                        ? statusList.data.map((item, key) => {
-                            return (
-                              <tr key={key}>
-                                <td>{item.name}</td>
-                                <td>
-                                  <Button
-                                    className="btn-fill"
-                                    variant="primary"
-                                    size="sm"
-                                  >
-                                    Edit
-                                  </Button>{" "}
-                                  <Button
-                                    className="btn-fill"
-                                    variant="danger"
-                                    size="sm"
-                                  >
-                                    Delete
-                                  </Button>
-                                </td>
-                              </tr>
-                            );
-                          })
-                        : null}
-                    </tbody>
-                  </Table>
+                  <DataTable
+                    title="Status"
+                    columns={columns}
+                    data={statusList.data}
+                    pagination
+                  />
                 </Card.Body>
               </Card>
             </Col>
