@@ -24,8 +24,13 @@ function Add({ show, setShow, fetchData, roleList }) {
     e.preventDefault();
     setLoading(true);
     try {
+      console.log(e.target.password.value);
       const param = {
-        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        firstname: e.target.firstname.value,
+        lastname: e.target.lastname.value,
+        role: Number(e.target.role.value),
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
@@ -58,8 +63,9 @@ function Add({ show, setShow, fetchData, roleList }) {
                   <Form.Control
                     name="email"
                     placeholder="Email"
-                    type="text"
+                    type="email"
                     onFocus={() => setExistErr(false)}
+                    required
                   ></Form.Control>
                 </Form.Group>
                 {existErr ? (
@@ -75,6 +81,8 @@ function Add({ show, setShow, fetchData, roleList }) {
                     name="password"
                     placeholder="Password"
                     type="password"
+                    required
+                    minLength={6}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -87,6 +95,7 @@ function Add({ show, setShow, fetchData, roleList }) {
                     name="firstname"
                     placeholder="Firstname"
                     type="text"
+                    required
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -99,6 +108,7 @@ function Add({ show, setShow, fetchData, roleList }) {
                     name="lastname"
                     placeholder="Lastname"
                     type="text"
+                    required
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -114,6 +124,7 @@ function Add({ show, setShow, fetchData, roleList }) {
                     isSearchable={true}
                     name="role"
                     options={roleList}
+                    required
                   />
                 </Form.Group>
               </Col>

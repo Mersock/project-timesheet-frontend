@@ -133,7 +133,6 @@ function User() {
     }
   }, [role]);
 
-  console.log(roleList);
   return (
     <>
       <Add
