@@ -10,12 +10,34 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
 
-function Edit({ activeData, show, setShow, fetchData,userList }) {
+function Edit({ activeData, show, setShow, fetchData, userList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [project, setProject] = useState(null);
   const [workTypes, setWorkType] = useState([]);
   const [member, setMember] = useState(null);
   const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (auth.accessToken && activeData?.id) {
+        try {
+          const config = {
+            headers: { Authorization: `bearer ${auth.accessToken}` },
+          };
+          const id = activeData.id;
+          const { data } = await axios.get(
+            `${backendUrl}/project/${id}`,
+            config
+          );
+          setProject(data.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    fetchData()
+  }, [auth.accessToken, activeData]);
 
   const handleClose = () => {
     setShow(false);
@@ -60,7 +82,7 @@ function Edit({ activeData, show, setShow, fetchData,userList }) {
                 <Form.Group>
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
-                    defaultValue={activeData?.name || ""}
+                    defaultValue={project?.name || ""}
                     name="name"
                     placeholder="Name"
                     type="text"
