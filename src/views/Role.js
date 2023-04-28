@@ -58,13 +58,13 @@ function Role() {
     },
   ];
 
-  const handleEdit = (id) => {
-    setActiveData(id);
+  const handleEdit = (data) => {
+    setActiveData(data);
     setEdit(true);
   };
 
-  const handleDelete = (id) => {
-    setActiveData(id);
+  const handleDelete = (data) => {
+    setActiveData(data);
     setDeletes(true);
   };
 
