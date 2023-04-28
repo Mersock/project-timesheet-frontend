@@ -29,8 +29,7 @@ function Delete({ activeData, show, setShow, fetchData }) {
       const id = activeData.id;
       await axios.delete(`${backendUrl}/role/${id}`, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {

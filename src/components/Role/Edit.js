@@ -32,8 +32,7 @@ function Edit({ activeData, show, setShow, fetchData }) {
       const id = activeData.id;
       await axios.put(`${backendUrl}/role/${id}`, param, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
