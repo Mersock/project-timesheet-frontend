@@ -56,8 +56,15 @@ function Project() {
       cell: (row) => (
         <>
           <Button
-            onClick={() => handleEdit(row)}
             className="btn-fill me-1"
+            variant="info"
+            size="sm"
+          >
+            View
+          </Button>
+          <Button
+            onClick={() => handleEdit(row)}
+            className="btn-fill me-1 ms-1"
             variant="primary"
             size="sm"
           >
