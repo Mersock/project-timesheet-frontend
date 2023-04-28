@@ -13,6 +13,7 @@ import MultipleValueTextInput from "react-multivalue-text-input";
 function Add({ show, setShow, fetchData, userList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [workTypeErr,setWorkTypeErr] = useState(false)
   const [workTypes, setWorkType] = useState([]);
   const [member, setMember] = useState(null);
   const auth = useSelector((state) => state.auth);
@@ -25,6 +26,11 @@ function Add({ show, setShow, fetchData, userList }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (workTypes.length == 0) {
+      setWorkTypeErr(true)
+      return
+    }
+
     setLoading(true);
     try {
       const param = {
@@ -37,8 +43,7 @@ function Add({ show, setShow, fetchData, userList }) {
       };
       await axios.post(`${backendUrl}/project`, param, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -109,8 +114,12 @@ function Add({ show, setShow, fetchData, userList }) {
                   label="Work Type"
                   name="work_types"
                   placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
+                  
                 />
               </Col>
+              {workTypeErr ? (
+                  <p className="text-danger">Work Type is required at least 1 item </p>
+                ) : null}
             </Row>
           </Modal.Body>
           <Modal.Footer>

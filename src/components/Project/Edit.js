@@ -10,9 +10,18 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
 
-function Edit({ activeData, show, setShow, fetchData, userList, project,setProjectData }) {
+function Edit({
+  activeData,
+  show,
+  setShow,
+  fetchData,
+  userList,
+  project,
+  setProjectData,
+}) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [workTypeErr, setWorkTypeErr] = useState(false);
   const [workTypes, setWorkType] = useState([]);
   const [member, setMember] = useState(null);
   const [defaultMember, setDefaultMember] = useState(null);
@@ -30,6 +39,9 @@ function Edit({ activeData, show, setShow, fetchData, userList, project,setProje
         };
       });
       setDefaultMember(userOption);
+
+      const workType = project?.data?.work_types.map((item) => item.name);
+      setWorkType(workType);
     }
   }, [project]);
 
@@ -37,11 +49,16 @@ function Edit({ activeData, show, setShow, fetchData, userList, project,setProje
     setShow(false);
     setLoading(false);
     setExistErr(false);
-    setProjectData(null)
+    setProjectData(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (workTypes.length == 0) {
+      setWorkTypeErr(true);
+      return;
+    }
+
     setLoading(true);
     try {
       const param = {
@@ -53,8 +70,7 @@ function Edit({ activeData, show, setShow, fetchData, userList, project,setProje
       const id = activeData.id;
       await axios.put(`${backendUrl}/project/${id}`, param, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -127,8 +143,13 @@ function Edit({ activeData, show, setShow, fetchData, userList, project,setProje
                   label="Work Type"
                   name="work_types"
                   placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
-                  values={project?.data?.work_types.map(item => item.name) || []}
+                  values={workTypes}
                 />
+                {workTypeErr ? (
+                  <p className="text-danger">
+                    Work Type is required at least 1 item{" "}
+                  </p>
+                ) : null}
               </Col>
             </Row>
           </Modal.Body>
