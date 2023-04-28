@@ -28,7 +28,7 @@ function Status() {
 
   const columns = [
     {
-      name: "Name",
+      name: "Status Name",
       selector: (row) => row.name,
       left: true,
     },
