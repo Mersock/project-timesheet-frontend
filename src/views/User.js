@@ -167,7 +167,7 @@ function User() {
                   <Button
                     onClick={() => setAdd(!add)}
                     className="btn-fill ms-3"
-                    variant="info"
+                    variant="success"
                     size="sm"
                   >
                     Add
