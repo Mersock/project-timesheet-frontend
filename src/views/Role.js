@@ -128,7 +128,7 @@ function Role() {
                   </Button>
                   <DataTable
                     columns={columns}
-                    data={statusList.data}
+                    data={statusList.data || []}
                     progressPending={loading}
                     pagination
                   />

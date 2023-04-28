@@ -174,7 +174,7 @@ function User() {
                   </Button>
                   <DataTable
                     columns={columns}
-                    data={userList.data}
+                    data={userList.data || []}
                     progressPending={loading}
                     pagination
                   />
