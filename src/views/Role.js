@@ -84,7 +84,7 @@ function Role() {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [error]);
 
