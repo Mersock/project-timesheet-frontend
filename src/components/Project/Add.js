@@ -8,16 +8,19 @@ import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import MultipleValueTextInput from "react-multivalue-text-input";
 
-function Add({ show, setShow,fetchData }) {
+function Add({ show, setShow, fetchData, userList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [workTypes, setWorkType] = useState([]);
+  const [member, setMember] = useState(null);
   const auth = useSelector((state) => state.auth);
 
   const handleClose = () => {
     setShow(false);
     setLoading(false);
-    setExistErr(false)
+    setExistErr(false);
   };
 
   const handleSubmit = async (e) => {
@@ -26,19 +29,22 @@ function Add({ show, setShow,fetchData }) {
     try {
       const param = {
         name: e.target.name.value,
+        members: member,
+        work_types: workTypes,
       };
+      console.log(e.target.name.value, member, workTypes);
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
       await axios.post(`${backendUrl}/project`, param, config);
-      await fetchData()
-      setShow(false)
-      setLoading(false)
+      await fetchData();
+      setShow(false);
+      setLoading(false);
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
         setExistErr(true);
-        setLoading(false)
+        setLoading(false);
       }
     }
   };
@@ -77,10 +83,34 @@ function Add({ show, setShow,fetchData }) {
                     isClearable={true}
                     isSearchable={true}
                     name="role"
-                    options={[]}
+                    options={userList}
                     required
+                    isMulti
+                    onChange={(data) => {
+                      const value = data.map((option) => {
+                        return String(option.value);
+                      });
+                      setMember(value);
+                    }}
                   />
                 </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <MultipleValueTextInput
+                  onItemAdded={(item, allItems) => {
+                    setWorkType((workTypes) => [...workTypes, item]);
+                  }}
+                  onItemDeleted={(item, allItems) => {
+                    setWorkType(
+                      workTypes.filter((workType) => workType != item)
+                    );
+                  }}
+                  label="Work Type"
+                  name="work_types"
+                  placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
+                />
               </Col>
             </Row>
           </Modal.Body>
