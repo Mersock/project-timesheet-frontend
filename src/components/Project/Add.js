@@ -32,7 +32,6 @@ function Add({ show, setShow, fetchData, userList }) {
         members: member,
         work_types: workTypes,
       };
-      console.log(e.target.name.value, member, workTypes);
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
