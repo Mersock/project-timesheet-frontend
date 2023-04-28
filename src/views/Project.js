@@ -26,6 +26,15 @@ function Project() {
     false
   );
 
+  const { fetchData: fetchUser } = useAxiosFetch(
+    {
+      method: "GET",
+      url: `/user${fakePaginate}`,
+      headers: { Authorization: `bearer ${auth.accessToken}` },
+    },
+    false
+  );
+
   const columns = [
     {
       name: "Project Name",
@@ -33,9 +42,9 @@ function Project() {
       left: true,
     },
     {
-        name: "Project Code",
-        selector: (row) => row.code,
-        left: true,
+      name: "Project Code",
+      selector: (row) => row.code,
+      left: true,
     },
     {
       name: "Action",
@@ -76,6 +85,7 @@ function Project() {
   useEffect(() => {
     if (auth.accessToken) {
       fetchData();
+      fetchUser();
     }
   }, [auth.accessToken]);
 

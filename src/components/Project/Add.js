@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
+import Select from "react-select";
 
 function Add({ show, setShow,fetchData }) {
   const [isLoading, setLoading] = useState(false);
@@ -64,6 +65,22 @@ function Add({ show, setShow,fetchData }) {
                 {existErr ? (
                   <p className="text-danger">This project name already exist</p>
                 ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Label>Members</Form.Label>
+                <Form.Group>
+                  <Select
+                    placeholder="Members"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="role"
+                    options={[]}
+                    required
+                  />
+                </Form.Group>
               </Col>
             </Row>
           </Modal.Body>
