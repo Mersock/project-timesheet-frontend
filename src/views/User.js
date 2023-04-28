@@ -10,7 +10,7 @@ import { fakePaginate } from "config/index.js";
 import { capitalizeStr } from "utils/string.js";
 
 function User() {
-  const [userList, setUserList] = useState(null);
+  const [list, setList] = useState(null);
   const [roleList, setRoleList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -103,15 +103,15 @@ function User() {
 
   useEffect(() => {
     if (data) {
-      setUserList(data);
+      setList(data);
     } else {
-      setUserList([]);
+      setList([]);
     }
   }, [data]);
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [error]);
 
@@ -156,7 +156,7 @@ function User() {
         fetchData={fetchData}
       />
       <Container fluid>
-        {userList ? (
+        {list ? (
           <Row>
             <Col md="12">
               <Card className="strpied-tabled-with-hover">
@@ -174,7 +174,7 @@ function User() {
                   </Button>
                   <DataTable
                     columns={columns}
-                    data={userList.data || []}
+                    data={list.data || []}
                     progressPending={loading}
                     pagination
                   />
