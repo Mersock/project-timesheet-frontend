@@ -28,12 +28,12 @@ function Project() {
 
   const columns = [
     {
-      name: "Name",
+      name: "Project Name",
       selector: (row) => row.name,
       left: true,
     },
     {
-        name: "Code",
+        name: "Project Code",
         selector: (row) => row.code,
         left: true,
     },

@@ -54,7 +54,7 @@ function Edit({ activeData, show, setShow, fetchData }) {
             <Row>
               <Col className="pr-1" md="12">
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Project Name</Form.Label>
                   <Form.Control
                     defaultValue={activeData?.name || ""}
                     name="name"
