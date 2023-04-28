@@ -10,6 +10,7 @@ import { fakePaginate } from "config/index.js";
 
 function Project() {
   const [list, setList] = useState(null);
+  const [userList, setUserList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
@@ -26,7 +27,7 @@ function Project() {
     false
   );
 
-  const { fetchData: fetchUser } = useAxiosFetch(
+  const { fetchData: fetchUser, data: users } = useAxiosFetch(
     {
       method: "GET",
       url: `/user${fakePaginate}`,
@@ -109,9 +110,22 @@ function Project() {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (users) {
+      const userOption = users?.data.map((item) => {
+        const option = {
+          value: item.id,
+          label: item.email
+        };
+        return option;
+      });
+      setUserList(userOption);
+    }
+  }, [users]);
+
   return (
     <>
-      <Add show={add} setShow={setAdd} fetchData={fetchData} />
+      <Add show={add} setShow={setAdd} fetchData={fetchData} userList={userList} />
       <Edit
         show={edit}
         activeData={activeData}
