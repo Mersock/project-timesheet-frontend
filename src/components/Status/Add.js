@@ -31,8 +31,7 @@ function Add({ show, setShow,fetchData }) {
       };
       await axios.post(`${backendUrl}/status`, param, config);
       await fetchData()
-      setShow(false)
-      setLoading(false)
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
