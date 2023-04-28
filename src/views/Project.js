@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
@@ -7,10 +7,13 @@ import Edit from "../components/Project/Edit.js";
 import Delete from "components/Project/Delete.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
+import axios from "axios";
+import { backendUrl } from "config/index.js";
 
 function Project() {
   const [list, setList] = useState(null);
   const [userList, setUserList] = useState(null);
+  const [projectData, setProjectData] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
@@ -73,15 +76,30 @@ function Project() {
     },
   ];
 
-  const handleEdit = (id) => {
-    setActiveData(id);
-    setEdit(true);
+  const handleEdit = async (row) => {
+    setActiveData(row);
+    try {
+      const config = {
+        headers: { Authorization: `bearer ${auth.accessToken}` },
+      };
+      const id = row.id;
+      const { data } = await axios.get(`${backendUrl}/project/${id}`, config);
+      setProjectData(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDelete = (id) => {
     setActiveData(id);
     setDeletes(true);
   };
+
+  useEffect(() => {
+    if (!edit && projectData) {
+      setEdit(true);
+    }
+  }, [edit, projectData]);
 
   useEffect(() => {
     if (auth.accessToken) {
@@ -114,7 +132,7 @@ function Project() {
     if (users) {
       const userOption = users?.data.map((item) => {
         const option = {
-          value: item.id,
+          value: item.email,
           label: item.email,
         };
         return option;
@@ -135,8 +153,10 @@ function Project() {
         show={edit}
         activeData={activeData}
         setShow={setEdit}
+        setProjectData={setProjectData}
         fetchData={fetchData}
         userList={userList}
+        project={projectData}
       />
       <Delete
         show={deletes}

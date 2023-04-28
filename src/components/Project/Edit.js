@@ -10,39 +10,34 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
 
-function Edit({ activeData, show, setShow, fetchData, userList }) {
+function Edit({ activeData, show, setShow, fetchData, userList, project,setProjectData }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
-  const [project, setProject] = useState(null);
   const [workTypes, setWorkType] = useState([]);
   const [member, setMember] = useState(null);
+  const [defaultMember, setDefaultMember] = useState(null);
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    async function fetchData() {
-      if (auth.accessToken && activeData?.id) {
-        try {
-          const config = {
-            headers: { Authorization: `bearer ${auth.accessToken}` },
-          };
-          const id = activeData.id;
-          const { data } = await axios.get(
-            `${backendUrl}/project/${id}`,
-            config
-          );
-          setProject(data.data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
+    if (project?.data) {
+      const user = project?.data?.users.filter(
+        (item) => item.role == "project member"
+      );
+      const userOption = user.map((item) => {
+        return {
+          value: item.id,
+          label: item.email,
+        };
+      });
+      setDefaultMember(userOption);
     }
-    fetchData()
-  }, [auth.accessToken, activeData]);
+  }, [project]);
 
   const handleClose = () => {
     setShow(false);
     setLoading(false);
     setExistErr(false);
+    setProjectData(null)
   };
 
   const handleSubmit = async (e) => {
@@ -82,7 +77,7 @@ function Edit({ activeData, show, setShow, fetchData, userList }) {
                 <Form.Group>
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
-                    defaultValue={project?.name || ""}
+                    defaultValue={project?.data?.name || ""}
                     name="name"
                     placeholder="Name"
                     type="text"
@@ -113,6 +108,7 @@ function Edit({ activeData, show, setShow, fetchData, userList }) {
                       });
                       setMember(value);
                     }}
+                    defaultValue={defaultMember}
                   />
                 </Form.Group>
               </Col>
@@ -131,6 +127,7 @@ function Edit({ activeData, show, setShow, fetchData, userList }) {
                   label="Work Type"
                   name="work_types"
                   placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
+                  values={project?.data?.work_types.map(item => item.name) || []}
                 />
               </Col>
             </Row>
