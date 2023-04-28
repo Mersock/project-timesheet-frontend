@@ -29,8 +29,7 @@ function Delete({ activeData, show, setShow, fetchData }) {
       const id = activeData.id;
       await axios.delete(`${backendUrl}/project/${id}`, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -45,7 +44,7 @@ function Delete({ activeData, show, setShow, fetchData }) {
       <Modal show={show} onHide={handleClose} animation={true}>
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
-            <Modal.Title>Delete Role</Modal.Title>
+            <Modal.Title>Delete Project</Modal.Title>
           </Modal.Header>
           <Modal.Body>Are you sure you want to delete?</Modal.Body>
           <Modal.Footer>
