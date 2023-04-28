@@ -36,8 +36,7 @@ function Add({ show, setShow, fetchData, roleList }) {
       };
       await axios.post(`${backendUrl}/user`, param, config);
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {

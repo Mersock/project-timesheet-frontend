@@ -44,8 +44,7 @@ function Edit({ activeData, show, setShow, fetchData, roleList }) {
         );
       }
       await fetchData();
-      setShow(false);
-      setLoading(false);
+      handleClose()
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
