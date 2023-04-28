@@ -28,7 +28,7 @@ function Role() {
 
   const columns = [
     {
-      name: "Name",
+      name: "Role Name",
       selector: (row) => row.name,
       left: true,
     },

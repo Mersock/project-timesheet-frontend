@@ -53,7 +53,7 @@ function Add({ show, setShow,fetchData }) {
             <Row>
               <Col className="pr-1" md="12">
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Role Name</Form.Label>
                   <Form.Control
                     name="name"
                     placeholder="Name"
