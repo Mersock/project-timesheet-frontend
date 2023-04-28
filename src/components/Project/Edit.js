@@ -7,10 +7,14 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
+import Select from "react-select";
+import MultipleValueTextInput from "react-multivalue-text-input";
 
-function Edit({ activeData, show, setShow, fetchData }) {
+function Edit({ activeData, show, setShow, fetchData,userList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [workTypes, setWorkType] = useState([]);
+  const [member, setMember] = useState(null);
   const auth = useSelector((state) => state.auth);
 
   const handleClose = () => {
@@ -66,6 +70,46 @@ function Edit({ activeData, show, setShow, fetchData }) {
                 {existErr ? (
                   <p className="text-danger">This Project name already exist</p>
                 ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <Form.Label>Members</Form.Label>
+                <Form.Group>
+                  <Select
+                    placeholder="Members"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="role"
+                    options={userList}
+                    required
+                    isMulti
+                    onChange={(data) => {
+                      const value = data.map((option) => {
+                        return String(option.value);
+                      });
+                      setMember(value);
+                    }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="12">
+                <MultipleValueTextInput
+                  onItemAdded={(item, allItems) => {
+                    setWorkType((workTypes) => [...workTypes, item]);
+                  }}
+                  onItemDeleted={(item, allItems) => {
+                    setWorkType(
+                      workTypes.filter((workType) => workType != item)
+                    );
+                  }}
+                  label="Work Type"
+                  name="work_types"
+                  placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
+                />
               </Col>
             </Row>
           </Modal.Body>

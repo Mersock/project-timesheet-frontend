@@ -115,7 +115,7 @@ function Project() {
       const userOption = users?.data.map((item) => {
         const option = {
           value: item.id,
-          label: item.email
+          label: item.email,
         };
         return option;
       });
@@ -125,12 +125,18 @@ function Project() {
 
   return (
     <>
-      <Add show={add} setShow={setAdd} fetchData={fetchData} userList={userList} />
+      <Add
+        show={add}
+        setShow={setAdd}
+        fetchData={fetchData}
+        userList={userList}
+      />
       <Edit
         show={edit}
         activeData={activeData}
         setShow={setEdit}
         fetchData={fetchData}
+        userList={userList}
       />
       <Delete
         show={deletes}
