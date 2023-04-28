@@ -9,7 +9,7 @@ import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
 
 function Role() {
-  const [statusList, setStatusList] = useState(null);
+  const [list, setList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
@@ -76,9 +76,9 @@ function Role() {
 
   useEffect(() => {
     if (data) {
-      setStatusList(data);
+      setList(data);
     } else {
-      setStatusList([]);
+      setList([]);
     }
   }, [data]);
 
@@ -110,7 +110,7 @@ function Role() {
         fetchData={fetchData}
       />
       <Container fluid>
-        {statusList ? (
+        {list ? (
           <Row>
             <Col md="12">
               <Card className="strpied-tabled-with-hover">
@@ -128,7 +128,7 @@ function Role() {
                   </Button>
                   <DataTable
                     columns={columns}
-                    data={statusList.data || []}
+                    data={list.data || []}
                     progressPending={loading}
                     pagination
                   />
