@@ -9,6 +9,7 @@ import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
+import { Table } from "react-bootstrap";
 
 function Edit({
   activeData,
@@ -39,8 +40,7 @@ function Edit({
         };
       });
       setDefaultMember(userOption);
-
-      const workType = project?.data?.work_types.map((item) => item.name);
+      const workType = project?.data?.work_types;
       setWorkType(workType);
     }
   }, [project]);
@@ -50,6 +50,7 @@ function Edit({
     setLoading(false);
     setExistErr(false);
     setProjectData(null);
+    setWorkTypeErr(false);
   };
 
   const handleSubmit = async (e) => {
@@ -63,6 +64,7 @@ function Edit({
     try {
       const param = {
         name: e.target.name.value,
+        work_types: workTypes,
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
@@ -70,7 +72,7 @@ function Edit({
       const id = activeData.id;
       await axios.put(`${backendUrl}/project/${id}`, param, config);
       await fetchData();
-      handleClose()
+      handleClose();
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -79,6 +81,8 @@ function Edit({
       }
     }
   };
+
+  console.log(workTypes);
 
   return (
     <>
@@ -131,25 +135,49 @@ function Edit({
             </Row>
             <Row>
               <Col className="pr-1" md="12">
-                <MultipleValueTextInput
-                  onItemAdded={(item, allItems) => {
-                    setWorkType((workTypes) => [...workTypes, item]);
-                  }}
-                  onItemDeleted={(item, allItems) => {
-                    setWorkType(
-                      workTypes.filter((workType) => workType != item)
-                    );
-                  }}
-                  label="Work Type"
-                  name="work_types"
-                  placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
-                  values={workTypes}
-                />
-                {workTypeErr ? (
-                  <p className="text-danger">
-                    Work Type is required at least 1 item{" "}
-                  </p>
-                ) : null}
+                <Row>
+                  <Col>
+                    <Form.Label>Work Type</Form.Label>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button
+                      className="btn-fill mb-2"
+                      variant="success"
+                      size="sm"
+                    >
+                      Add
+                    </Button>
+                  </Col>
+                </Row>
+                <Table striped bordered hover width="100">
+                  <thead>
+                    <tr className="d-flex">
+                      <th className="col-10 text-center">Name</th>
+                      <th className="col-2 text-center">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {workTypes ? (
+                        workTypes.map (item => (
+                          <tr className="d-flex" key={item.id}> 
+                          <td className="col-10">
+                            <Form.Control
+                              size="sm"
+                              type="text"
+                              placeholder="name"
+                              defaultValue={item.name}
+                            />
+                          </td>
+                          <td className="col-2 text-center">
+                            <Form.Check type="checkbox" id={`work_type_${item.id}`} />
+                          </td>
+                        </tr>
+                        ))
+                    ) : null}
+                  </tbody>
+                </Table>
               </Col>
             </Row>
           </Modal.Body>
