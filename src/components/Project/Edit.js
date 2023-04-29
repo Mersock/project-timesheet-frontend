@@ -156,6 +156,7 @@ function Edit({
                     placeholder="Name"
                     type="text"
                     onFocus={() => setExistErr(false)}
+                    required
                   ></Form.Control>
                 </Form.Group>
                 {existErr ? (

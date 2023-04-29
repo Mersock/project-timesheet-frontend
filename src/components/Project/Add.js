@@ -9,42 +9,68 @@ import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
+import TableRows from "./WorkTypesRow";
+import { Table } from "react-bootstrap";
 
 function Add({ show, setShow, fetchData, userList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
-  const [workTypeErr,setWorkTypeErr] = useState(false)
+  const [workTypeErr, setWorkTypeErr] = useState(false);
   const [workTypes, setWorkType] = useState([]);
   const [member, setMember] = useState(null);
   const auth = useSelector((state) => state.auth);
+
+  const addTableRows = () => {
+    const rowsInput = {
+      name: null,
+      id: null,
+    };
+    setWorkType([...workTypes, rowsInput]);
+  };
+
+  const deleteTableRows = (index, id) => {
+    let rows = [...workTypes];
+    rows.splice(index, 1);
+    setWorkType(rows);
+  };
+
+  const handleTableChange = (index, id, evnt) => {
+    const { value } = evnt.target;
+    const rowsInput = [...workTypes];
+    rowsInput[index].id = null;
+    rowsInput[index].action = "add";
+    rowsInput[index].name = value;
+    setWorkType(rowsInput);
+  };
 
   const handleClose = () => {
     setShow(false);
     setLoading(false);
     setExistErr(false);
-    setWorkTypeErr(false)
+    setWorkTypeErr(false);
+    setMember(null);
+    setWorkType([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (workTypes.length == 0) {
-      setWorkTypeErr(true)
-      return
+      setWorkTypeErr(true);
+      return;
     }
-
     setLoading(true);
     try {
       const param = {
         name: e.target.name.value,
         members: member,
-        work_types: workTypes,
+        work_types: workTypes.map((item) => item.name),
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
       await axios.post(`${backendUrl}/project`, param, config);
       await fetchData();
-      handleClose()
+      handleClose();
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -71,6 +97,7 @@ function Add({ show, setShow, fetchData, userList }) {
                     placeholder="Name"
                     type="text"
                     onFocus={() => setExistErr(false)}
+                    required
                   ></Form.Control>
                 </Form.Group>
                 {existErr ? (
@@ -103,24 +130,46 @@ function Add({ show, setShow, fetchData, userList }) {
             </Row>
             <Row>
               <Col className="pr-1" md="12">
-                <MultipleValueTextInput
-                  onItemAdded={(item, allItems) => {
-                    setWorkType((workTypes) => [...workTypes, item]);
-                  }}
-                  onItemDeleted={(item, allItems) => {
-                    setWorkType(
-                      workTypes.filter((workType) => workType != item)
-                    );
-                  }}
-                  label="Work Type"
-                  name="work_types"
-                  placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
-                  
-                />
-              </Col>
-              {workTypeErr ? (
-                  <p className="text-danger">Work Type is required at least 1 item </p>
+                <Row>
+                  <Col>
+                    <Form.Label>Work Type</Form.Label>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col></Col>
+                </Row>
+                {workTypeErr ? (
+                  <p className="text-danger">
+                    Work Type is required at least 1 item{" "}
+                  </p>
                 ) : null}
+                <Table striped bordered hover responsive>
+                  <thead>
+                    <tr>
+                      <th className="text-center">Name</th>
+                      <th className="text-center">
+                        <Button
+                          className="btn-fill"
+                          variant="success"
+                          size="sm"
+                          onClick={addTableRows}
+                        >
+                          Add
+                        </Button>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {workTypes ? (
+                      <TableRows
+                        rowsData={workTypes}
+                        deleteTableRows={deleteTableRows}
+                        handleChange={handleTableChange}
+                      />
+                    ) : null}
+                  </tbody>
+                </Table>
+              </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer>
