@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
 import { Table } from "react-bootstrap";
+import TableRows from "./WorkTypesRow";
 
 function Edit({
   activeData,
@@ -45,6 +46,22 @@ function Edit({
     }
   }, [project]);
 
+  const addTableRows = () => {
+    const rowsInput = {
+      name: null,
+      id: null,
+    };
+    setWorkType([...workTypes, rowsInput]);
+  };
+
+  const deleteTableRows = (index, id) => {
+    const rows = [...workTypes];
+    rows.splice(index, 1);
+    setWorkType(rows);
+
+    console.log(id);
+  };
+
   const handleClose = () => {
     setShow(false);
     setLoading(false);
@@ -59,8 +76,8 @@ function Edit({
       setWorkTypeErr(true);
       return;
     }
-
     setLoading(true);
+
     try {
       const param = {
         name: e.target.name.value,
@@ -81,8 +98,6 @@ function Edit({
       }
     }
   };
-
-  console.log(workTypes);
 
   return (
     <>
@@ -141,40 +156,35 @@ function Edit({
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <Button
-                      className="btn-fill mb-2"
-                      variant="success"
-                      size="sm"
-                    >
-                      Add
-                    </Button>
-                  </Col>
+                  <Col></Col>
                 </Row>
-                <Table striped bordered hover width="100">
+                {workTypeErr ? (
+                  <p className="text-danger">
+                    Work Type is required at least 1 item{" "}
+                  </p>
+                ) : null}
+                <Table striped bordered hover responsive>
                   <thead>
-                    <tr className="d-flex">
-                      <th className="col-10 text-center">Name</th>
-                      <th className="col-2 text-center">Delete</th>
+                    <tr>
+                      <th className="text-center">Name</th>
+                      <th className="text-center">
+                        <Button
+                          className="btn-fill"
+                          variant="success"
+                          size="sm"
+                          onClick={addTableRows}
+                        >
+                          Add
+                        </Button>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {workTypes ? (
-                        workTypes.map (item => (
-                          <tr className="d-flex" key={item.id}> 
-                          <td className="col-10">
-                            <Form.Control
-                              size="sm"
-                              type="text"
-                              placeholder="name"
-                              defaultValue={item.name}
-                            />
-                          </td>
-                          <td className="col-2 text-center">
-                            <Form.Check type="checkbox" id={`work_type_${item.id}`} />
-                          </td>
-                        </tr>
-                        ))
+                      <TableRows
+                        rowsData={workTypes}
+                        deleteTableRows={deleteTableRows}
+                      />
                     ) : null}
                   </tbody>
                 </Table>
