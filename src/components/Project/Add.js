@@ -22,6 +22,7 @@ function Add({ show, setShow, fetchData, userList }) {
     setShow(false);
     setLoading(false);
     setExistErr(false);
+    setWorkTypeErr(false)
   };
 
   const handleSubmit = async (e) => {
