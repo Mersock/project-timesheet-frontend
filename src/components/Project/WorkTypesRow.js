@@ -11,7 +11,9 @@ function TableRows({ rowsData, deleteTableRows, handleChange }) {
             size="sm"
             type="text"
             placeholder="name"
-            defaultValue={name}
+            value={name || ''}
+            required
+            onChange={(evnt)=>(handleChange(index,id, evnt))}
           />
         </td>
         <td align="center">
