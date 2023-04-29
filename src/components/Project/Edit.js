@@ -5,13 +5,12 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
-import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
-import MultipleValueTextInput from "react-multivalue-text-input";
 import { Table } from "react-bootstrap";
 import TableRows from "./WorkTypesRow";
 import { useHistory } from "react-router-dom";
+import { backendUrl } from "config";
 
 function Edit({
   activeData,
@@ -27,7 +26,7 @@ function Edit({
   const [workTypeErr, setWorkTypeErr] = useState(false);
   const [workTypes, setWorkType] = useState([]);
   const [deleteWorkType, setDeleteWorkType] = useState([]);
-  const [member, setMember] = useState(null);
+  const [members, setMembers] = useState(null);
   const [defaultMember, setDefaultMember] = useState(null);
   const history = useHistory();
 
@@ -40,11 +39,13 @@ function Edit({
       );
       const userOption = user.map((item) => {
         return {
-          value: item.id,
+          value: item.email,
           label: item.email,
         };
       });
       setDefaultMember(userOption);
+      const users = user.map((item) => item.email);
+      setMembers(users);
       const workType = project?.data?.work_types;
       setWorkType(workType);
     }
@@ -91,6 +92,7 @@ function Edit({
     setProjectData(null);
     setWorkTypeErr(false);
     setDeleteWorkType([]);
+    setMembers(null);
     setDefaultMember(null);
   };
 
@@ -115,6 +117,7 @@ function Edit({
         add_work_types: addWorkType,
         edit_work_types: editWorkType,
         delete_work_types: deleteWorkType,
+        members: members,
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
@@ -177,7 +180,7 @@ function Edit({
                       const value = data.map((option) => {
                         return String(option.value);
                       });
-                      setMember(value);
+                      setMembers(value);
                     }}
                     defaultValue={defaultMember}
                   />
