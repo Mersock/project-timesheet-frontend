@@ -11,6 +11,7 @@ import Select from "react-select";
 import MultipleValueTextInput from "react-multivalue-text-input";
 import { Table } from "react-bootstrap";
 import TableRows from "./WorkTypesRow";
+import { useHistory } from "react-router-dom";
 
 function Edit({
   activeData,
@@ -25,8 +26,11 @@ function Edit({
   const [existErr, setExistErr] = useState(false);
   const [workTypeErr, setWorkTypeErr] = useState(false);
   const [workTypes, setWorkType] = useState([]);
+  const [deleteWorkType, setDeleteWorkType] = useState([]);
   const [member, setMember] = useState(null);
   const [defaultMember, setDefaultMember] = useState(null);
+  const history = useHistory();
+
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -55,11 +59,29 @@ function Edit({
   };
 
   const deleteTableRows = (index, id) => {
-    const rows = [...workTypes];
-    rows.splice(index, 1);
-    setWorkType(rows);
+    let rows = [...workTypes];
+    if (id) {
+      rows[index].id = id;
+      setDeleteWorkType((ids) => [...ids, id]);
+      setWorkType((rows) => rows.filter((item) => item.id != id));
+    } else {
+      rows.splice(index, 1);
+      setWorkType(rows);
+    }
+  };
 
-    console.log(id);
+  const handleTableChange = (index, id, evnt) => {
+    const { value } = evnt.target;
+    const rowsInput = [...workTypes];
+    if (id) {
+      rowsInput[index].name = value;
+    } else {
+      rowsInput[index].id = null;
+      rowsInput[index].action = "add";
+      rowsInput[index].name = value;
+      setWorkType(rowsInput);
+    }
+    setWorkType(rowsInput);
   };
 
   const handleClose = () => {
@@ -68,6 +90,8 @@ function Edit({
     setExistErr(false);
     setProjectData(null);
     setWorkTypeErr(false);
+    setDeleteWorkType([]);
+    setDefaultMember(null);
   };
 
   const handleSubmit = async (e) => {
@@ -78,10 +102,19 @@ function Edit({
     }
     setLoading(true);
 
+    const addWorkType = workTypes
+      .filter((item) => item.action == "add")
+      .map((item) => item.name);
+    const editWorkType = workTypes
+      .filter((item) => item.action != "add" && item.action != "delete")
+      .map((item) => ({ id: item.id, name: item.name }));
+
     try {
       const param = {
         name: e.target.name.value,
-        work_types: workTypes,
+        add_work_types: addWorkType,
+        edit_work_types: editWorkType,
+        delete_work_types: deleteWorkType,
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
@@ -95,6 +128,9 @@ function Edit({
       if (error.response.status == 409) {
         setExistErr(true);
         setLoading(false);
+      }
+      if (error.response.status == 401) {
+        history.push("/auth");
       }
     }
   };
@@ -184,6 +220,7 @@ function Edit({
                       <TableRows
                         rowsData={workTypes}
                         deleteTableRows={deleteTableRows}
+                        handleChange={handleTableChange}
                       />
                     ) : null}
                   </tbody>
