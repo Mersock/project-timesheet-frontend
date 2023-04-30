@@ -46,7 +46,6 @@ function ReportTotalTime() {
       console.error(error);
     }
   };
-  console.log(report);
 
   const listReport = report?.map((item, index) => (
     <tr key={index}>
