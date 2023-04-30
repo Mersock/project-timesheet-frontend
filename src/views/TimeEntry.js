@@ -66,12 +66,12 @@ function TimeEntry() {
     },
     {
       name: "Start Time",
-      selector: (row) => moment(row.start_time).format("dd-MM-yyyy HH:mm"),
+      selector: (row) => moment(row.start_time).format("DD-MM-yyyy HH:mm"),
       left: true,
     },
     {
       name: "End time",
-      selector: (row) => moment(row.endtime).format("dd-MM-yyyy HH:mm"),
+      selector: (row) => moment(row.endtime).format("DD-MM-yyyy HH:mm"),
       left: true,
     },
     {
