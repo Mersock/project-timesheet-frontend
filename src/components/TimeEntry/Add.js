@@ -16,14 +16,16 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [activeProject, setActiveProject] = useState(null);
-  const [workTypeList, setWorkTypeList] = useState(null)
+  const [workTypeList, setWorkTypeList] = useState(null);
   const auth = useSelector((state) => state.auth);
-  const refWorkType = useRef()
+  const refWorkType = useRef();
 
   const handleClose = () => {
     setShow(false);
     setLoading(false);
     setExistErr(false);
+    setActiveProject(null);
+    setWorkTypeList(null);
   };
 
   const handleSubmit = async (e) => {
@@ -31,12 +33,15 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
     setLoading(true);
     try {
       const param = {
-        name: e.target.name.value,
+        status_id: Number(e.target.status.value),
+        work_type_id: Number(e.target.work_type.value),
+        start_time: `${e.target.start_time.value}:00`,
+        end_time: `${e.target.end_time.value}:00`,
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
-      await axios.post(`${backendUrl}/role`, param, config);
+      await axios.post(`${backendUrl}/timeEntry`, param, config);
       await fetchData();
       handleClose();
     } catch (error) {
@@ -55,19 +60,19 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
           const config = {
             headers: { Authorization: `bearer ${auth.accessToken}` },
           };
-         const {data} = await axios.get(
+          const { data } = await axios.get(
             `${backendUrl}/workTypes/project/${activeProject}`,
             config
           );
           if (data.data) {
-            const workTypes = data.data.map(item => {
+            const workTypes = data.data.map((item) => {
               const option = {
                 value: item.id,
                 label: item.name,
               };
               return option;
-            })
-            setWorkTypeList(workTypes)
+            });
+            setWorkTypeList(workTypes);
           }
         } catch (error) {
           console.error(error);
@@ -99,9 +104,9 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                     options={projectList}
                     required
                     onChange={(e) => {
-                      refWorkType.current.setValue(null)
-                      setWorkTypeList(null)
-                      setActiveProject(e.value)
+                      refWorkType.current.setValue(null);
+                      setWorkTypeList(null);
+                      setActiveProject(e.value);
                     }}
                   />
                 </Form.Group>
@@ -127,7 +132,7 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                 <Form.Label>Status</Form.Label>
                 <Form.Group>
                   <Select
-                    placeholder="Project"
+                    placeholder="Status"
                     classNamePrefix="select"
                     isClearable={true}
                     isSearchable={true}
@@ -147,7 +152,7 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                   onChange={(date) => setStartDate(date)}
                   showTimeSelect
                   timeIntervals={10}
-                  dateFormat="dd-MM-yyyy HH:mm"
+                  dateFormat="yyyy-MM-dd HH:mm"
                   timeFormat="HH:mm"
                   placeholderText="Select Start Time"
                   name="start_time"
@@ -162,7 +167,7 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                   onChange={(date) => setEndDate(date)}
                   showTimeSelect
                   timeIntervals={10}
-                  dateFormat="dd-MM-yyyy HH:mm"
+                  dateFormat="yyyy-MM-dd HH:mm"
                   timeFormat="HH:mm"
                   placeholderText="Select End Time"
                   name="end_time"
