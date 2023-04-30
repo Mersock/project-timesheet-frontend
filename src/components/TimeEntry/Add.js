@@ -78,7 +78,7 @@ function Add({
                     isClearable={true}
                     isSearchable={true}
                     name="project"
-                    options={projectList}
+                    options={projectList || []}
                     required
                     onChange={(e) => {
                       refWorkType.current.setValue(null);
@@ -99,7 +99,7 @@ function Add({
                     isClearable={true}
                     isSearchable={true}
                     name="work_type"
-                    options={workTypeList}
+                    options={workTypeList || []}
                     required
                     ref={refWorkType}
                   />
