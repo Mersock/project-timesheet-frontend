@@ -18,7 +18,7 @@ function Add({
   statusList,
   workTypeList,
   setActiveProject,
-  setWorkTypeList
+  setWorkTypeList,
 }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
@@ -31,6 +31,8 @@ function Add({
     setShow(false);
     setLoading(false);
     setExistErr(false);
+    setStartDate(new Date());
+    setEndDate(new Date());
   };
 
   const handleSubmit = async (e) => {
