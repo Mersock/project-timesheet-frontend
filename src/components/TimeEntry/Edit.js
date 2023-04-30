@@ -14,6 +14,7 @@ import moment from "moment";
 
 function Edit({
   activeData,
+  fetchData,
   show,
   setShow,
   projectList,
@@ -42,13 +43,16 @@ function Edit({
     setLoading(true);
     try {
       const param = {
-        name: e.target.name.value,
+        status_id: Number(e.target.status.value),
+        work_type_id: Number(e.target.work_type.value),
+        start_time: `${e.target.start_time.value}:00`,
+        end_time: `${e.target.end_time.value}:00`,
       };
       const config = {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
       const id = activeData.id;
-      await axios.put(`${backendUrl}/role/${id}`, param, config);
+      await axios.put(`${backendUrl}/timeEntry/${id}`, param, config);
       await fetchData();
       handleClose();
     } catch (error) {
