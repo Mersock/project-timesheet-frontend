@@ -26,7 +26,7 @@ class Footer extends Component {
           <nav>
             <p className="copyright text-center">
               © {new Date().getFullYear()}{" "}
-              Phumthawan Nokun 
+              Phumthawan Nokun  @Project Timesheet and Monitoring Database System
             </p>
           </nav>
         </Container>
