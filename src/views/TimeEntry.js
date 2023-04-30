@@ -61,7 +61,7 @@ function TimeEntry() {
     },
     {
       name: "Work Type",
-      selector: (row) => row.work_type,
+      selector: (row) => row.work_type_name,
       left: true,
     },
     {
@@ -193,6 +193,7 @@ function TimeEntry() {
         setShow={setEdit}
         fetchData={fetchData}
         projectList={projectList}
+        statusList={statusList}
       />
       <Delete
         show={deletes}
