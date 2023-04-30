@@ -33,56 +33,64 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "nc-icon nc-chart-pie-35",
     component: Dashboard,
-    layout: "/admin"
-  },
-  {
-    path: "/project",
-    name: "Project",
-    icon: "nc-icon nc-tablet-2",
-    component: Project,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager','project member']
   },
   {
     path: "/timeEntry",
     name: "Time Entry",
     icon: "nc-icon nc-time-alarm",
     component: TimeEntry,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager','project member']
+  },
+  {
+    path: "/project",
+    name: "Project",
+    icon: "nc-icon nc-tablet-2",
+    component: Project,
+    layout: "/admin",
+    roles:['administrator','project manager']
   },
   {
     path: "/reportTotalTime",
     name: "Report Total Time",
     icon: "nc-icon  nc-single-copy-04",
     component: ReportTotalTime,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager']
   },
   {
     path: "/reportIndividualTimeEntry",
     name: "Report Individual Time Entry",
     icon: "nc-icon  nc-single-copy-04",
     component: ReportIndividualTimeEntry,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager']
   },
   {
     path: "/reportMemberInProject",
     name: "Report Member In Project",
     icon: "nc-icon  nc-single-copy-04",
     component: ReportMemberInProject,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager']
   },
   {
     path: "/reportTotalProject",
     name: "Report Total Project",
     icon: "nc-icon  nc-single-copy-04",
     component: ReportTotalProject,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator','project manager']
   },
   {
     path: "/reportTotalUser",
     name: "Report Total User",
     icon: "nc-icon  nc-single-copy-04",
     component: ReportTotalUser,
-    layout: "/admin"
+    layout: "/admin",
+    roles:['administrator']
   },
   {
     path: "/users",
