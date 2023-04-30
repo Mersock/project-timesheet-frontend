@@ -1,44 +1,46 @@
-import axios from "axios";
-import { backendUrl } from "config";
-import React, { useState } from "react";
+import { useAxiosFetch } from "customeHook/useAxiosFetch";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 function ReportTotalProject() {
-  const [report, setReport] = useState(null);
   const auth = useSelector((state) => state.auth);
+  const [report,setReport] = useState(null)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const param = {
-        project_code: e.target.project_code.value,
-      };
-      const config = {
-        headers: { Authorization: `bearer ${auth.accessToken}` },
-      };
-      const { data } = await axios.post(
-        `${backendUrl}/report/totalTime`,
-        param,
-        config
-      );
-      if (data?.data) {
-        setReport(data.data);
-      } else {
-        setReport(null);
-      }
-    } catch (error) {
+  const { fetchData, data, loading, error } = useAxiosFetch(
+    {
+      method: "GET",
+      url: `/project/count`,
+      headers: { Authorization: `bearer ${auth.accessToken}` },
+    },
+    false
+  );
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      fetchData();
+    }
+  }, [auth.accessToken]);
+
+  useEffect(() => {
+    if (data) {
+      setReport(data);
+    } else {
+      setReport(null);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
       console.error(error);
     }
-  };
+  }, [error]);
 
-  const listReport = report?.worktypes.map((item, index) => (
-    <tr key={index}>
-      <td>{index + 1}</td>
-      <td>{item.work_type_name}</td>
-      <td>{item.total_time}</td>
-    </tr>
-  ));
+  useEffect(() => {
+    if (loading) {
+      console.log("retrieving status...");
+    }
+  }, [loading]);
 
   return (
     <>
@@ -63,7 +65,7 @@ function ReportTotalProject() {
                         <tbody>
                           <tr>
                             <td>Total Project</td>
-                            <td>22</td>
+                            <td>{report?.total || ''}</td>
                           </tr>
                         </tbody>
                       </Table>
