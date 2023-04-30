@@ -28,7 +28,7 @@ import User from "views/User";
 import Project from "views/Project";
 import TimeEntry from "views/TimeEntry";
 import ReportTotalTime from "views/ReportTotalTime";
-
+import ReportIndividualTimeEntry from "views/ReportIndividualTimeEntry"
 
 const dashboardRoutes = [
   {
@@ -100,6 +100,13 @@ const dashboardRoutes = [
     name: "Report Total Time",
     icon: "nc-icon nc-time-alarm",
     component: ReportTotalTime,
+    layout: "/admin"
+  },
+  {
+    path: "/reportIndividualTimeEntry",
+    name: "Report Individual Time",
+    icon: "nc-icon nc-time-alarm",
+    component: ReportIndividualTimeEntry,
     layout: "/admin"
   },
   {
