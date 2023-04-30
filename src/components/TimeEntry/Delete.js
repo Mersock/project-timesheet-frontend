@@ -27,7 +27,7 @@ function Delete({ activeData, show, setShow, fetchData }) {
         headers: { Authorization: `bearer ${auth.accessToken}` },
       };
       const id = activeData.id;
-      await axios.delete(`${backendUrl}/role/${id}`, config);
+      await axios.delete(`${backendUrl}/timeEntry/${id}`, config);
       await fetchData();
       handleClose()
     } catch (error) {
@@ -44,7 +44,7 @@ function Delete({ activeData, show, setShow, fetchData }) {
       <Modal show={show} onHide={handleClose} animation={true}>
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
-            <Modal.Title>Delete Role</Modal.Title>
+            <Modal.Title>Delete Time Entry</Modal.Title>
           </Modal.Header>
           <Modal.Body>Are you sure you want to delete?</Modal.Body>
           <Modal.Footer>
