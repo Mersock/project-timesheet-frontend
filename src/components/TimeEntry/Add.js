@@ -9,7 +9,7 @@ import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-function Add({ show, setShow, fetchData, projectList,statusList }) {
+function Add({ show, setShow, fetchData, projectList, statusList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const auth = useSelector((state) => state.auth);
@@ -94,6 +94,34 @@ function Add({ show, setShow, fetchData, projectList,statusList }) {
                     required
                   />
                 </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6">
+                <label htmlFor="inputMembers">Start Time</label>
+                <DatePicker
+                  className="form-control"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  showTimeSelect
+                  timeIntervals={10}
+                  dateFormat="dd-MM-yyyy HH:mm"
+                  timeFormat="HH:mm"
+                  placeholderText="Select Start Time"
+                />
+              </Col>
+              <Col md="6">
+                <label htmlFor="inputMembers">End Time</label>
+                <DatePicker
+                  className="form-control"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  showTimeSelect
+                  timeIntervals={10}
+                  dateFormat="dd-MM-yyyy HH:mm"
+                  timeFormat="HH:mm"
+                  placeholderText="Select End Time"
+                />
               </Col>
             </Row>
           </Modal.Body>
