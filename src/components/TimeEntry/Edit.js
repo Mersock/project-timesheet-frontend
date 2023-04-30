@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,11 +7,26 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
+import Select from "react-select";
+import DatePicker from "react-datepicker";
 
-function Edit({ activeData, show, setShow, fetchData }) {
+function Edit({
+  activeData,
+  show,
+  setShow,
+  fetchData,
+  projectList,
+  statusList,
+}) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [activeProject, setActiveProject] = useState(null);
+  const [workTypeList, setWorkTypeList] = useState(null);
   const auth = useSelector((state) => state.auth);
+  const refWorkType = useRef();
+
 
   const handleClose = () => {
     setShow(false);
@@ -32,7 +47,7 @@ function Edit({ activeData, show, setShow, fetchData }) {
       const id = activeData.id;
       await axios.put(`${backendUrl}/role/${id}`, param, config);
       await fetchData();
-      handleClose()
+      handleClose();
     } catch (error) {
       console.error(error);
       if (error.response.status == 409) {
@@ -44,28 +59,94 @@ function Edit({ activeData, show, setShow, fetchData }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      <Modal show={show} onHide={handleClose} animation={true} size="lg">
         <Form onSubmit={handleSubmit} method="post">
           <Modal.Header closeButton>
-            <Modal.Title>Edit Time Entry</Modal.Title>
+            <Modal.Title>Add Time Entry</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
               <Col className="pr-1" md="12">
+                <Form.Label>Project</Form.Label>
                 <Form.Group>
-                  <Form.Label>Role Name</Form.Label>
-                  <Form.Control
-                    defaultValue={activeData?.name || ""}
-                    name="name"
-                    placeholder="Name"
-                    type="text"
-                    onFocus={() => setExistErr(false)}
+                  <Select
+                    placeholder="Project"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="project"
+                    options={projectList}
                     required
-                  ></Form.Control>
+                    onChange={(e) => {
+                      refWorkType.current.setValue(null);
+                      setWorkTypeList(null);
+                      setActiveProject(e.value);
+                    }}
+                  />
                 </Form.Group>
-                {existErr ? (
-                  <p className="text-danger">This role name already exist</p>
-                ) : null}
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pr-1" md="6">
+                <Form.Label>WorkType</Form.Label>
+                <Form.Group>
+                  <Select
+                    placeholder="Project"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="work_type"
+                    options={workTypeList}
+                    required
+                    ref={refWorkType}
+                  />
+                </Form.Group>
+              </Col>
+              <Col className="pr-1" md="6">
+                <Form.Label>Status</Form.Label>
+                <Form.Group>
+                  <Select
+                    placeholder="Status"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    name="status"
+                    options={statusList}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6">
+                <label htmlFor="inputMembers">Start Time</label>
+                <DatePicker
+                  className="form-control"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  showTimeSelect
+                  timeIntervals={10}
+                  dateFormat="yyyy-MM-dd HH:mm"
+                  timeFormat="HH:mm"
+                  placeholderText="Select Start Time"
+                  name="start_time"
+                  required
+                />
+              </Col>
+              <Col md="6">
+                <label htmlFor="inputMembers">End Time</label>
+                <DatePicker
+                  className="form-control"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  showTimeSelect
+                  timeIntervals={10}
+                  dateFormat="yyyy-MM-dd HH:mm"
+                  timeFormat="HH:mm"
+                  placeholderText="Select End Time"
+                  name="end_time"
+                  required
+                />
               </Col>
             </Row>
           </Modal.Body>
