@@ -10,13 +10,20 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 
-function Add({ show, setShow, fetchData, projectList, statusList }) {
+function Add({
+  show,
+  setShow,
+  fetchData,
+  projectList,
+  statusList,
+  workTypeList,
+  setActiveProject,
+  setWorkTypeList
+}) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [activeProject, setActiveProject] = useState(null);
-  const [workTypeList, setWorkTypeList] = useState(null);
   const auth = useSelector((state) => state.auth);
   const refWorkType = useRef();
 
@@ -24,8 +31,6 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
     setShow(false);
     setLoading(false);
     setExistErr(false);
-    setActiveProject(null);
-    setWorkTypeList(null);
   };
 
   const handleSubmit = async (e) => {
@@ -52,36 +57,6 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
       }
     }
   };
-
-  useEffect(() => {
-    const fetchWorkType = async () => {
-      if (activeProject) {
-        try {
-          const config = {
-            headers: { Authorization: `bearer ${auth.accessToken}` },
-          };
-          const { data } = await axios.get(
-            `${backendUrl}/workTypes/project/${activeProject}`,
-            config
-          );
-          if (data.data) {
-            const workTypes = data.data.map((item) => {
-              const option = {
-                value: item.id,
-                label: item.name,
-              };
-              return option;
-            });
-            setWorkTypeList(workTypes);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
-    fetchWorkType();
-  }, [activeProject]);
 
   return (
     <>

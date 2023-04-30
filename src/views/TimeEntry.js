@@ -9,6 +9,8 @@ import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
 import moment from "moment";
 import Badge from "react-bootstrap/Badge";
+import axios from "axios";
+import { backendUrl } from "config/index.js";
 
 function TimeEntry() {
   const [list, setList] = useState(null);
@@ -18,6 +20,8 @@ function TimeEntry() {
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
   const [activeData, setActiveData] = useState(null);
+  const [activeProject, setActiveProject] = useState(null);
+  const [workTypeList, setWorkTypeList] = useState(null);
 
   const auth = useSelector((state) => state.auth);
 
@@ -178,6 +182,36 @@ function TimeEntry() {
     }
   }, [status]);
 
+  useEffect(() => {
+    const fetchWorkType = async () => {
+      if (activeProject) {
+        try {
+          const config = {
+            headers: { Authorization: `bearer ${auth.accessToken}` },
+          };
+          const { data } = await axios.get(
+            `${backendUrl}/workTypes/project/${activeProject}`,
+            config
+          );
+          if (data.data) {
+            const workTypes = data.data.map((item) => {
+              const option = {
+                value: item.id,
+                label: item.name,
+              };
+              return option;
+            });
+            setWorkTypeList(workTypes);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchWorkType();
+  }, [activeProject]);
+
   return (
     <>
       <Add
@@ -186,6 +220,9 @@ function TimeEntry() {
         fetchData={fetchData}
         projectList={projectList}
         statusList={statusList}
+        workTypeList={workTypeList}
+        setActiveProject={setActiveProject}
+        setWorkTypeList={setWorkTypeList}
       />
       <Edit
         show={edit}
