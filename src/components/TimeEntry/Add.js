@@ -99,7 +99,6 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                     options={projectList}
                     required
                     onChange={(e) => {
-                      console.log(refWorkType)
                       refWorkType.current.setValue(null)
                       setWorkTypeList(null)
                       setActiveProject(e.value)
