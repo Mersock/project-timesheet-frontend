@@ -8,6 +8,7 @@ import Delete from "components/TimeEntry/Delete.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
 import moment from "moment";
+import Badge from "react-bootstrap/Badge";
 
 function TimeEntry() {
   const [list, setList] = useState(null);
@@ -80,8 +81,12 @@ function TimeEntry() {
     },
     {
       name: "Status",
-      selector: (row) => row.status,
       left: true,
+      cell: (row) => (
+        <>
+          <Badge bg="secondary"><strong>{row.status}</strong></Badge>
+        </>
+      ),
     },
     {
       name: "Action",
