@@ -8,6 +8,7 @@ import axios from "axios";
 import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import DatePicker from "react-datepicker";
 
 function Add({ show, setShow, fetchData, projectList, statusList }) {
   const [isLoading, setLoading] = useState(false);
