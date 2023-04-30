@@ -35,6 +35,9 @@ import "./assets/css/demo.css";
 import "./assets/css/auth.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import "react-datepicker/dist/react-datepicker.css";
+
+
 import AdminLayout from "layouts/Admin.js";
 import Auth from "views/Auth.js";
 
