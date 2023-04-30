@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 function Add({ show, setShow, fetchData, projectList, statusList }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const auth = useSelector((state) => state.auth);
 
   const handleClose = () => {
