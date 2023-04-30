@@ -1,9 +1,40 @@
-import React from "react";
-import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
+import axios from "axios";
+import { backendUrl } from "config";
+import React, { useState } from "react";
+import { Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 function ReportTotalTime() {
+  const [report, setReport] = useState(null);
   const auth = useSelector((state) => state.auth);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const param = {
+        project_code: e.target.project_code.value,
+      };
+      const config = {
+        headers: { Authorization: `bearer ${auth.accessToken}` },
+      };
+      const { data } = await axios.post(
+        `${backendUrl}/report/totalTime`,
+        param,
+        config
+      );
+      setReport(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const listReport = report?.worktypes.map((item,index) => (
+    <tr key={index}>
+      <td>{index+1}</td>
+      <td>{item.work_type_name}</td>
+      <td>{item.total_time}</td>
+    </tr>
+  ));
 
   return (
     <>
@@ -15,13 +46,14 @@ function ReportTotalTime() {
                 <Card.Title as="h4">Report Total Time</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <Row>
                     <Col md="12">
                       <Form.Group>
                         <Form.Control
                           placeholder="Search by Project Code"
                           type="text"
+                          name="project_code"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -30,7 +62,9 @@ function ReportTotalTime() {
                     <Col md="12">
                       <Row>
                         <Col className="text-center">
-                          <span>Database Work Shop</span>
+                          <h4>
+                            <span>{report?.project_name || ""}</span>
+                          </h4>
                         </Col>
                       </Row>
                       <Table className="table-hover">
@@ -42,16 +76,17 @@ function ReportTotalTime() {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Design Database</td>
-                            <td>00:01:00</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Create Table</td>
-                            <td>00:02:00</td>
-                          </tr>
+                          {report ? (
+                            listReport
+                          ) : (
+                            <>
+                              <tr>
+                                <td align="center" colSpan={3}>
+                                  No Data
+                                </td>
+                              </tr>
+                            </>
+                          )}
                         </tbody>
                       </Table>
                     </Col>
