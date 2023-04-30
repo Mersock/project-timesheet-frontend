@@ -75,7 +75,7 @@ function TimeEntry() {
     },
     {
       name: "End time",
-      selector: (row) => moment(row.endtime).format("DD-MM-yyyy HH:mm"),
+      selector: (row) => moment(row.end_time).format("DD-MM-yyyy HH:mm"),
       left: true,
     },
     {
@@ -118,9 +118,30 @@ function TimeEntry() {
     },
   ];
 
-  const handleEdit = (data) => {
-    setActiveData(data);
-    setEdit(true);
+  const handleEdit = async (row) => {
+    try {
+      const config = {
+        headers: { Authorization: `bearer ${auth.accessToken}` },
+      };
+      const { data } = await axios.get(
+        `${backendUrl}/workTypes/project/${row.project_id}`,
+        config
+      );
+      if (data.data) {
+        const workTypes = data.data.map((item) => {
+          const option = {
+            value: item.id,
+            label: item.name,
+          };
+          return option;
+        });
+        setWorkTypeList(workTypes);
+        setActiveData(row);
+        setEdit(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDelete = (data) => {
@@ -212,6 +233,7 @@ function TimeEntry() {
     fetchWorkType();
   }, [activeProject]);
 
+
   return (
     <>
       <Add
@@ -231,6 +253,9 @@ function TimeEntry() {
         fetchData={fetchData}
         projectList={projectList}
         statusList={statusList}
+        workTypeList={workTypeList}
+        setActiveProject={setActiveProject}
+        setWorkTypeList={setWorkTypeList}
       />
       <Delete
         show={deletes}
