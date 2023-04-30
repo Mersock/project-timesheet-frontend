@@ -9,29 +9,32 @@ import { backendUrl } from "config";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
+import moment from "moment";
+
 
 function Edit({
   activeData,
   show,
   setShow,
-  fetchData,
   projectList,
   statusList,
+  workTypeList,
+  setActiveProject,
+  setWorkTypeList,
 }) {
   const [isLoading, setLoading] = useState(false);
   const [existErr, setExistErr] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [activeProject, setActiveProject] = useState(null);
-  const [workTypeList, setWorkTypeList] = useState(null);
   const auth = useSelector((state) => state.auth);
   const refWorkType = useRef();
-
 
   const handleClose = () => {
     setShow(false);
     setLoading(false);
     setExistErr(false);
+    setStartDate(new Date())
+    setEndDate(new Date())
   };
 
   const handleSubmit = async (e) => {
@@ -57,6 +60,13 @@ function Edit({
     }
   };
 
+  useEffect(() => {
+    if (activeData) {
+      setStartDate(new Date(activeData?.start_time))
+      setEndDate(new Date(activeData?.end_time))
+    }
+  }, [activeData])
+  
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={true} size="lg">
@@ -70,6 +80,14 @@ function Edit({
                 <Form.Label>Project</Form.Label>
                 <Form.Group>
                   <Select
+                    defaultValue={
+                      projectList != null
+                        ? projectList.find(
+                            (project) =>
+                              project.label == activeData?.project_name
+                          )
+                        : null
+                    }
                     placeholder="Project"
                     classNamePrefix="select"
                     isClearable={true}
@@ -91,7 +109,15 @@ function Edit({
                 <Form.Label>WorkType</Form.Label>
                 <Form.Group>
                   <Select
-                    placeholder="Project"
+                    defaultValue={
+                      workTypeList != null
+                        ? workTypeList.find(
+                            (workType) =>
+                              workType.label == activeData?.work_type_name || ''
+                          )
+                        : null
+                    }
+                    placeholder="WorkType"
                     classNamePrefix="select"
                     isClearable={true}
                     isSearchable={true}
@@ -106,6 +132,13 @@ function Edit({
                 <Form.Label>Status</Form.Label>
                 <Form.Group>
                   <Select
+                    defaultValue={
+                      statusList != null
+                        ? statusList.find(
+                            (status) => status.label == activeData?.status
+                          )
+                        : null
+                    }
                     placeholder="Status"
                     classNamePrefix="select"
                     isClearable={true}
