@@ -156,7 +156,7 @@ function TimeEntry() {
     if (project) {
       const projectOption = project?.data.map((item) => {
         const option = {
-          value: item.name,
+          value: item.id,
           label: item.name,
         };
         return option;
@@ -169,7 +169,7 @@ function TimeEntry() {
     if (status) {
       const statusOption = status?.data.map((item) => {
         const option = {
-          value: item.name,
+          value: item.id,
           label: item.name,
         };
         return option;

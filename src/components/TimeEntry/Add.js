@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,7 +15,10 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
   const [existErr, setExistErr] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [activeProject, setActiveProject] = useState(null);
+  const [workTypeList, setWorkTypeList] = useState(null)
   const auth = useSelector((state) => state.auth);
+  const refWorkType = useRef()
 
   const handleClose = () => {
     setShow(false);
@@ -45,6 +48,36 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
     }
   };
 
+  useEffect(() => {
+    const fetchWorkType = async () => {
+      if (activeProject) {
+        try {
+          const config = {
+            headers: { Authorization: `bearer ${auth.accessToken}` },
+          };
+         const {data} = await axios.get(
+            `${backendUrl}/workTypes/project/${activeProject}`,
+            config
+          );
+          if (data.data) {
+            const workTypes = data.data.map(item => {
+              const option = {
+                value: item.id,
+                label: item.name,
+              };
+              return option;
+            })
+            setWorkTypeList(workTypes)
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchWorkType();
+  }, [activeProject]);
+
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={true} size="lg">
@@ -65,6 +98,12 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                     name="project"
                     options={projectList}
                     required
+                    onChange={(e) => {
+                      console.log(refWorkType)
+                      refWorkType.current.setValue(null)
+                      setWorkTypeList(null)
+                      setActiveProject(e.value)
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -78,9 +117,10 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                     classNamePrefix="select"
                     isClearable={true}
                     isSearchable={true}
-                    name="project"
-                    options={[]}
+                    name="work_type"
+                    options={workTypeList}
                     required
+                    ref={refWorkType}
                   />
                 </Form.Group>
               </Col>
@@ -111,6 +151,8 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                   dateFormat="dd-MM-yyyy HH:mm"
                   timeFormat="HH:mm"
                   placeholderText="Select Start Time"
+                  name="start_time"
+                  required
                 />
               </Col>
               <Col md="6">
@@ -124,6 +166,8 @@ function Add({ show, setShow, fetchData, projectList, statusList }) {
                   dateFormat="dd-MM-yyyy HH:mm"
                   timeFormat="HH:mm"
                   placeholderText="Select End Time"
+                  name="end_time"
+                  required
                 />
               </Col>
             </Row>
