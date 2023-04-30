@@ -22,7 +22,11 @@ function ReportTotalTime() {
         param,
         config
       );
-      setReport(data.data);
+      if (data?.data) {
+        setReport(data.data);
+      }else{
+        setReport(null)
+      }
     } catch (error) {
       console.error(error);
     }
