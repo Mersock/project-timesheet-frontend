@@ -26,6 +26,8 @@ import Status from "views/Status"
 import Role from "views/Role";
 import User from "views/User";
 import Project from "views/Project";
+import TimeEntry from "views/TimeEntry";
+
 
 const dashboardRoutes = [
   {
@@ -83,6 +85,13 @@ const dashboardRoutes = [
     name: "Project",
     icon: "nc-icon nc-tablet-2",
     component: Project,
+    layout: "/admin"
+  },
+  {
+    path: "/timeEntry",
+    name: "Time Entry",
+    icon: "nc-icon nc-time-alarm",
+    component: TimeEntry,
     layout: "/admin"
   },
   {
