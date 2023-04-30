@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
-import Add from "../components/Role/Add.js";
-import Edit from "../components/Role/Edit.js";
-import Delete from "components/Role/Delete.js";
+import Add from "../components/TimeEntry/Add.js";
+import Edit from "../components/TimeEntry/Edit.js";
+import Delete from "components/TimeEntry/Delete.js";
 import DataTable from "react-data-table-component";
 import { fakePaginate } from "config/index.js";
-import moment from "moment"
-
+import moment from "moment";
 
 function TimeEntry() {
   const [list, setList] = useState(null);
+  const [projectList, setProjectList] = useState(null);
+  const [statusList, setStatusList] = useState(null);
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
@@ -28,15 +29,33 @@ function TimeEntry() {
     false
   );
 
-  const columns = [
+  const { fetchData: fetchProject, data: project } = useAxiosFetch(
     {
-      name: "Project Name",
-      selector: (row) => row.project_name,
-      left: true,
+      method: "GET",
+      url: `/project${fakePaginate}`,
+      headers: { Authorization: `bearer ${auth.accessToken}` },
     },
+    false
+  );
+
+  const { fetchData: fetchStatus, data: status } = useAxiosFetch(
+    {
+      method: "GET",
+      url: `/status${fakePaginate}`,
+      headers: { Authorization: `bearer ${auth.accessToken}` },
+    },
+    false
+  );
+
+  const columns = [
     {
       name: "Project Code",
       selector: (row) => row.project_code,
+      left: true,
+    },
+    {
+      name: "Project Name",
+      selector: (row) => row.project_name,
       left: true,
     },
     {
@@ -46,12 +65,12 @@ function TimeEntry() {
     },
     {
       name: "Start Time",
-      selector: (row) =>  moment(row.start_time).format('DD-MM-YYYY HH:mm') ,
+      selector: (row) => moment(row.start_time).format("DD-MM-YYYY HH:mm"),
       left: true,
     },
     {
       name: "End time",
-      selector: (row) => moment(row.endtime).format('DD-MM-YYYY HH:mm'),
+      selector: (row) => moment(row.endtime).format("DD-MM-YYYY HH:mm"),
       left: true,
     },
     {
@@ -103,6 +122,8 @@ function TimeEntry() {
   useEffect(() => {
     if (auth.accessToken) {
       fetchData();
+      fetchProject();
+      fetchStatus();
     }
   }, [auth.accessToken]);
 
@@ -126,14 +147,47 @@ function TimeEntry() {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (project) {
+      const projectOption = project?.data.map((item) => {
+        const option = {
+          value: item.name,
+          label: item.name,
+        };
+        return option;
+      });
+      setProjectList(projectOption);
+    }
+  }, [project]);
+
+  useEffect(() => {
+    if (status) {
+      const statusOption = status?.data.map((item) => {
+        const option = {
+          value: item.name,
+          label: item.name,
+        };
+        return option;
+      });
+      setStatusList(statusOption);
+    }
+  }, [status]);
+
   return (
     <>
-      <Add show={add} setShow={setAdd} fetchData={fetchData} />
+      <Add
+        show={add}
+        setShow={setAdd}
+        fetchData={fetchData}
+        projectList={projectList}
+        statusList={statusList}
+      />
       <Edit
         show={edit}
         activeData={activeData}
         setShow={setEdit}
         fetchData={fetchData}
+        projectList={projectList}
       />
       <Delete
         show={deletes}
