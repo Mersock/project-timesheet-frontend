@@ -24,21 +24,30 @@ function ReportTotalTime() {
       );
       if (data?.data) {
         setReport(data.data);
-      }else{
-        setReport(null)
+      } else {
+        setReport(null);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const listReport = report?.worktypes.map((item,index) => (
-    <tr key={index}>
-      <td>{index+1}</td>
-      <td>{item.work_type_name}</td>
-      <td>{item.total_time}</td>
-    </tr>
-  ));
+  const listReport =
+    report?.worktypes ? (
+      report?.worktypes.map((item, index) => (
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>{item.work_type_name}</td>
+          <td>{item.total_time}</td>
+        </tr>
+      ))
+    ) : (
+      <tr>
+        <td align="center" colSpan={3}>
+          No Data
+        </td>
+      </tr>
+    );
 
   return (
     <>
@@ -79,19 +88,7 @@ function ReportTotalTime() {
                             <th className="border-0">Total Time</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          {report ? (
-                            listReport
-                          ) : (
-                            <>
-                              <tr>
-                                <td align="center" colSpan={3}>
-                                  No Data
-                                </td>
-                              </tr>
-                            </>
-                          )}
-                        </tbody>
+                        <tbody>{listReport}</tbody>
                       </Table>
                     </Col>
                   </Row>
