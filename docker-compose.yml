@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: project-timesheet-frontend
+    ports:
+      - '80:80'
+    networks:
+      - project-timesheet
+
+networks:
+  project-timesheet:
+    name: project-timesheet
+    driver: bridge
