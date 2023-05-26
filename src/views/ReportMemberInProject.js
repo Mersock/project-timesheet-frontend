@@ -38,45 +38,53 @@ function ReportMemberInProject() {
       console.error(error);
     }
   };
-  const userList = report?.users?.map((data, index) => (
+  const userList = report ? (
+    report?.users?.map((data, index) => (
+      <tr>
+        <td>
+          {data.role == "project manager" ? (
+            <strong className="text-primary"> {index + 1}</strong>
+          ) : (
+            index + 1
+          )}
+        </td>
+        <td>
+          {data.role == "project manager" ? (
+            <strong className="text-primary"> {data.email}</strong>
+          ) : (
+            data.email
+          )}
+        </td>
+        <td>
+          {data.role == "project manager" ? (
+            <strong className="text-primary"> {data.firstname}</strong>
+          ) : (
+            data.firstname
+          )}
+        </td>
+        <td>
+          {data.role == "project manager" ? (
+            <strong className="text-primary"> {data.lastname}</strong>
+          ) : (
+            data.lastname
+          )}
+        </td>
+        <td>
+          {data.role == "project manager" ? (
+            <strong className="text-primary"> {data.role}</strong>
+          ) : (
+            data.role
+          )}
+        </td>
+      </tr>
+    ))
+  ) : (
     <tr>
-      <td>
-        {data.role == "project manager" ? (
-          <strong className="text-primary"> {index + 1}</strong>
-        ) : (
-          index + 1
-        )}
-      </td>
-      <td>
-        {data.role == "project manager" ? (
-          <strong className="text-primary"> {data.email}</strong>
-        ) : (
-          data.email
-        )}
-      </td>
-      <td>
-        {data.role == "project manager" ? (
-          <strong className="text-primary"> {data.firstname}</strong>
-        ) : (
-          data.firstname
-        )}
-      </td>
-      <td>
-        {data.role == "project manager" ? (
-          <strong className="text-primary"> {data.lastname}</strong>
-        ) : (
-          data.lastname
-        )}
-      </td>
-      <td>
-        {data.role == "project manager" ? (
-          <strong className="text-primary"> {data.role}</strong>
-        ) : (
-          data.role
-        )}
+      <td align="center" colSpan={5}>
+        No Data
       </td>
     </tr>
-  ));
+  );
 
   return (
     <>
@@ -117,17 +125,7 @@ function ReportMemberInProject() {
                             <th className="border-0">Role</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          {report ? (
-                            userList
-                          ) : (
-                            <tr>
-                              <td align="center" colSpan={5}>
-                                No Data
-                              </td>
-                            </tr>
-                          )}
-                        </tbody>
+                        <tbody>{userList}</tbody>
                       </Table>
                     </Col>
                   </Row>
