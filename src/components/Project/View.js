@@ -41,8 +41,6 @@ function View({ activeData, show, setShow, project, setProjectData }) {
       </tr>
     );
 
-  console.log(project);
-
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={true} size="lg">

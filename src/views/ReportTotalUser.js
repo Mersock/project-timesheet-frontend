@@ -38,7 +38,7 @@ function ReportTotalUser() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving status...");
+      console.log("retrieving user...");
     }
   }, [loading]);
 

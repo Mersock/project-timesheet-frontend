@@ -173,7 +173,7 @@ function TimeEntry() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving status...");
+      console.log("retrieving time entry...");
     }
   }, [loading]);
 

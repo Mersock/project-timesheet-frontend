@@ -90,7 +90,7 @@ function Role() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving status...");
+      console.log("retrieving role...");
     }
   }, [loading]);
 

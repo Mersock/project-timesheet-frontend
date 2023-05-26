@@ -155,7 +155,7 @@ function Project() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving status...");
+      console.log("retrieving project...");
     }
   }, [loading]);
 

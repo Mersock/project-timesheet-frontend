@@ -38,7 +38,7 @@ function ReportTotalProject() {
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving status...");
+      console.log("retrieving report total project...");
     }
   }, [loading]);
 
