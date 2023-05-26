@@ -20,9 +20,15 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
 import routes from "routes.js";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SIGN_OUT } from "action/types";
 
 function Header() {
   const location = useLocation();
+  const history = useHistory()
+  const dispatch = useDispatch()
+
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
     document.documentElement.classList.toggle("nav-open");
@@ -43,6 +49,15 @@ function Header() {
     }
     return "Brand";
   };
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    dispatch({
+      type: SIGN_OUT,
+    });
+    history.push('/signin')
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -73,7 +88,7 @@ function Header() {
               <Nav.Link
                 className="m-0"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => handleLogout(e)}
               >
                 <span className="no-icon">Log out</span>
               </Nav.Link>

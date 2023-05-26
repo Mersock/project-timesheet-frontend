@@ -34,6 +34,9 @@ const authReducer = (state = INTIAL_STATE, action) => {
         refreshToken: refreshToken,
       };
     case SIGN_OUT:
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
       return {
         userId: null,
         username: null,
