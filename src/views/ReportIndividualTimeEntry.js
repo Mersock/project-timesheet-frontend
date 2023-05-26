@@ -64,7 +64,7 @@ function ReportTotalTime() {
     </td>
   </tr>
   )
-  
+
   return (
     <>
       <Container fluid>
@@ -135,15 +135,7 @@ function ReportTotalTime() {
                           </tr>
                         </thead>
                         <tbody>
-                          {report ? (
-                            listReport
-                          ) : (
-                            <tr>
-                              <td colSpan={5} align="center">
-                                No Data
-                              </td>
-                            </tr>
-                          )}
+                          {listReport}
                         </tbody>
                       </Table>
                     </Col>
