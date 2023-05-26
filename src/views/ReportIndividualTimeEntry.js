@@ -47,7 +47,7 @@ function ReportTotalTime() {
     }
   };
 
-  const listReport = report?.map((item, index) => (
+  const listReport = report ? report?.map((item, index) => (
     <tr key={index}>
       <td>{index + 1}</td>
       <td>{item.work_type_name}</td>
@@ -57,8 +57,14 @@ function ReportTotalTime() {
       <td>{moment(item.start_time).format("DD-MM-yyyy HH:mm")}</td>
       <td>{moment(item.end_time).format("DD-MM-yyyy HH:mm")}</td>
     </tr>
-  ));
-
+  )):(
+    <tr>
+    <td colSpan={5} align="center">
+      No Data
+    </td>
+  </tr>
+  )
+  
   return (
     <>
       <Container fluid>
