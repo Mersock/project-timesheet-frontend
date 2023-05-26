@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useAxiosFetch } from "customeHook/useAxiosFetch";
 import Add from "../components/Project/Add.js";
+import View from "../components/Project/View.js";
 import Edit from "../components/Project/Edit.js";
 import Delete from "components/Project/Delete.js";
 import DataTable from "react-data-table-component";
@@ -14,7 +15,9 @@ function Project() {
   const [list, setList] = useState(null);
   const [userList, setUserList] = useState(null);
   const [projectData, setProjectData] = useState(null);
+  const [viewData, setViewData] = useState(null);
   const [add, setAdd] = useState(false);
+  const [view, setView] = useState(false);
   const [edit, setEdit] = useState(false);
   const [deletes, setDeletes] = useState(false);
   const [activeData, setActiveData] = useState(null);
@@ -56,6 +59,7 @@ function Project() {
       cell: (row) => (
         <>
           <Button
+            onClick={() => handleView(row)}
             className="btn-fill me-1"
             variant="info"
             size="sm"
@@ -83,6 +87,20 @@ function Project() {
     },
   ];
 
+  const handleView = async (row) => {
+    setActiveData(row);
+    try {
+      const config = {
+        headers: { Authorization: `bearer ${auth.accessToken}` },
+      };
+      const id = row.id;
+      const { data } = await axios.get(`${backendUrl}/project/${id}`, config);
+      setViewData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleEdit = async (row) => {
     setActiveData(row);
     try {
@@ -101,6 +119,12 @@ function Project() {
     setActiveData(id);
     setDeletes(true);
   };
+
+  useEffect(() => {
+    if (!view && viewData) {
+      setView(true);
+    }
+  }, [edit, viewData]);
 
   useEffect(() => {
     if (!edit && projectData) {
@@ -155,6 +179,13 @@ function Project() {
         setShow={setAdd}
         fetchData={fetchData}
         userList={userList}
+      />
+      <View
+        show={view}
+        activeData={activeData}
+        setShow={setView}
+        setProjectData={setViewData}
+        project={viewData}
       />
       <Edit
         show={edit}
