@@ -21,37 +21,37 @@ import { useLocation, NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
 import logo from "assets/img/reactlogo.png";
+import { useSelector } from "react-redux";
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();
   const activeRoute = (routeName) => {
     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
+  const auth = useSelector((state) => state.auth);
+
   return (
     <div className="sidebar" data-image={image} data-color={color}>
       <div
         className="sidebar-background"
         style={{
-          backgroundImage: "url(" + image + ")"
+          backgroundImage: "url(" + image + ")",
         }}
       />
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
-          <a
-            href="/admin/dashboard"
-            className="simple-text logo-mini mx-1"
-          >
+          <a href="/admin/dashboard" className="simple-text logo-mini mx-1">
             <div className="logo-img">
               <img src={require("assets/img/reactlogo.png")} alt="..." />
             </div>
           </a>
           <a className="simple-text" href="/admin/dashboard">
-          Project Timesheet
+            Project Timesheet
           </a>
         </div>
         <Nav>
           {routes.map((prop, key) => {
-            if (!prop.redirect)
+            if (!prop.redirect && prop.roles.includes(auth.role))
               return (
                 <li
                   className={
