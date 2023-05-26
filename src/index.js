@@ -42,6 +42,7 @@ import AdminLayout from "layouts/Admin.js";
 import Auth from "views/Auth.js";
 
 import reducers from "./reducer";
+import Index from "views";
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
@@ -58,9 +59,10 @@ root.render(
   <BrowserRouter>
     <Switch>
       <Provider store={store}>
-        <Route path="/auth" render={(props) => <Auth {...props}/> } />
+        <Route path="/signin" render={(props) => <Auth {...props}/> } />
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        {/* <Redirect from="/" to="/admin/dashboard" /> */}
+        <Route path="/" render={(props) => <Index {...props}/> } />
+        {/* <Redirect from="/" to="/auth" /> */}
       </Provider>
     </Switch>
   </BrowserRouter>
