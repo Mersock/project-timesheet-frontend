@@ -192,7 +192,7 @@ function TimeEntry() {
 
   useEffect(() => {
     if (status) {
-      const statusOption = status?.data.map((item) => {
+      const statusOption = status?.data?.map((item) => {
         const option = {
           value: item.id,
           label: item.name,
