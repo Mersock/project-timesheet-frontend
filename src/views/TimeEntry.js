@@ -179,7 +179,7 @@ function TimeEntry() {
 
   useEffect(() => {
     if (project) {
-      const projectOption = project?.data.map((item) => {
+      const projectOption = project?.data?.map((item) => {
         const option = {
           value: item.id,
           label: item.name,
