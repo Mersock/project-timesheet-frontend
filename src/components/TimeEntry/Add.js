@@ -33,6 +33,7 @@ function Add({
     setExistErr(false);
     setStartDate(new Date());
     setEndDate(new Date());
+    setActiveProject(null)
   };
 
   const handleSubmit = async (e) => {
